@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
+import DashboardContext from '../../Context/DashboardContext';
 
 const LOGO = styled.div`
   font-size: 1.5em;
@@ -7,11 +9,12 @@ const LOGO = styled.div`
 
 const NAVBAR = styled.div`
   display: grid;
-  grid-template-columns: 180px auto 100px 100px;
+  grid-template-columns: 180px auto 100px 100px 100px 100px;
 `;
 
-const ControlButtonElem = styled.div`
-  cursor: pointer;
+const LinkStyle = styled.p`
+  color: white;
+  text-decoration: none;
   ${(props) =>
     props.active &&
     css`
@@ -19,21 +22,30 @@ const ControlButtonElem = styled.div`
     `}
 `;
 
-const toProperCase = (lower) => lower.charAt(0).toUpperCase() + lower.slice(1);
+const Navbar = ({ location }) => {
+  const dashboardContext = useContext(DashboardContext);
+  const { page } = dashboardContext;
 
-const CONTROL_BUTTON = ({ name, active }) => {
-  return (
-    <ControlButtonElem active={active}>{toProperCase(name)}</ControlButtonElem>
-  );
-};
-
-const Navbar = () => {
   return (
     <NAVBAR>
       <LOGO>CD</LOGO>
       <div></div>
-      <CONTROL_BUTTON name='dashboard' active />
-      <CONTROL_BUTTON name='settings' />
+      <Link to='/'>
+        <LinkStyle active={'/' === page ? true : false}>Home</LinkStyle>
+      </Link>
+      <Link to='/dashboard'>
+        <LinkStyle active={'/dashboard' === page ? true : false}>
+          Dashboard
+        </LinkStyle>
+      </Link>
+      <Link to='/settings'>
+        <LinkStyle active={'/settings' === page ? true : false}>
+          Settings
+        </LinkStyle>
+      </Link>
+      <Link to='/about'>
+        <LinkStyle active={'/about' === page ? true : false}>About</LinkStyle>
+      </Link>
     </NAVBAR>
   );
 };
