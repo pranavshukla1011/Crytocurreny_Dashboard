@@ -16,8 +16,6 @@ const Settings = ({ location }) => {
 
   useEffect(() => {
     setPage(location.pathname);
-    setFavourites();
-    setFirstVisit(favourites === null);
     // eslint-disable-next-line
   }, []);
 

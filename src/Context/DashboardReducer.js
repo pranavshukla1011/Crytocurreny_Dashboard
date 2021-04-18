@@ -1,4 +1,9 @@
-import { SET_PAGE, SET_FIRST_VISIT, SET_FAVOURITES } from '../Context/types';
+import {
+  SET_PAGE,
+  SET_FIRST_VISIT,
+  SET_FAVOURITES,
+  SET_COIN_LIST,
+} from '../Context/types';
 
 export default (state, action) => {
   switch (action.type) {
@@ -17,6 +22,8 @@ export default (state, action) => {
         ...state,
         favourites: JSON.parse(localStorage.getItem('cryptoData')),
       };
+    case SET_COIN_LIST:
+      return;
     default:
       return state;
   }

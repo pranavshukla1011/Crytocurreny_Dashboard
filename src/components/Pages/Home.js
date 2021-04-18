@@ -2,11 +2,18 @@ import React, { useContext, useEffect } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Spinner from '../layout/spinner';
 
 const Home = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
 
-  const { setPage, firstVisit } = dashboardContext;
+  const {
+    favourites,
+    firstVisit,
+    setPage,
+    setFavourites,
+    setFirstVisit,
+  } = dashboardContext;
 
   useEffect(() => {
     setPage(location.pathname);
@@ -55,6 +62,43 @@ const Home = ({ location }) => {
     }
   `;
 
+  if (dashboardContext.loading === true) {
+    return <Spinner />;
+  } else {
+    return (
+      <div className='container'>
+        {firstVisit === true ? (
+          <MainDiv>
+            <h1>Hi Newbie...</h1>
+            <h2>Welcome to CryptoCurrency Dashboard.</h2>
+            <br />
+            <h3>
+              Please click the <i>Settings</i> tab to setup you currency to get
+              started.
+            </h3>
+            <br />
+            <StyledLink to='/settings'>
+              <p>Settings</p>
+            </StyledLink>
+          </MainDiv>
+        ) : (
+          <MainDiv>
+            <MainDiv>
+              <h1>Glad to have you back...</h1>
+              <br />
+              <h3>
+                Please click the <i>Dashboard</i> tab to view your currency.
+              </h3>
+              <br />
+              <StyledLink to='/dashboard'>
+                <p>Dashboard</p>
+              </StyledLink>
+            </MainDiv>
+          </MainDiv>
+        )}
+      </div>
+    );
+  }
   return (
     <div className='container'>
       {firstVisit === true ? (

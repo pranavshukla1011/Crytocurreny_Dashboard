@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import DashboardContext from '../../Context/DashboardContext';
@@ -39,7 +39,24 @@ const StyledLink = styled(Link)`
 
 const Navbar = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
-  const { page } = dashboardContext;
+  const {
+    page,
+    favourites,
+    firstVisit,
+    setPage,
+    setFavourites,
+    setFirstVisit,
+  } = dashboardContext;
+
+  useEffect(async () => {
+    await setFavourites();
+    if (favourites) {
+      setFirstVisit(false);
+    } else {
+      setFirstVisit(true);
+    }
+    // eslint-disable-next-line
+  }, [firstVisit, page]);
 
   return (
     <NavBar className='container'>
