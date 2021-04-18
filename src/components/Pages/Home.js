@@ -15,44 +15,67 @@ const Home = ({ location }) => {
 
   const MainDiv = styled.div`
     text-align: center;
-    border: 2px black solid;
-    margin-top: 50px;
-    color: var(--font-color-2);
+    display: flex;
+    flex-direction: column;
+    // border: 2px solid white;
+    height: 60vh;
+    align-items: center;
+    justify-content: center;
+    color: var(--font-color-3);
+
+    & h1 {
+      font-size: var(--l-length-m);
+    }
+
+    & h2 {
+      font-size: var(--l-length-s);
+    }
+
+    & h3 {
+      margin: var(--m-length-m) 0 0 0;
+      font-size: var(--m-length-m);
+    }
   `;
 
-  const LinkStyle = {
-    textDecoration: 'none',
-  };
-
-  const Button = () => {
-    return (
-      <Link
-        style={LinkStyle}
-        to={firstVisit ? '/settings' : '/dashboard'}
-      ></Link>
-    );
-  };
+  const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: var(--font-color-3);
+    border: 2px solid var(--main-color-purple);
+    border-radius: var(--m-length-m);
+    padding: 10px;
+    font-size: var(--m-length-l);
+    text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
+  `;
 
   return (
     <div className='container'>
       {firstVisit === true ? (
         <MainDiv>
-          <h1>Hello,New User</h1>
+          <h1>Hi Newbie...</h1>
           <h2>Welcome to CryptoCurrency Dashboard.</h2>
           <br />
-          <h2>
+          <h3>
             Please click the <i>Settings</i> tab to setup you currency to get
             started.
-          </h2>
+          </h3>
           <br />
-          <Button />
+          <StyledLink to='/settings'>
+            <p>Settings</p>
+          </StyledLink>
         </MainDiv>
       ) : (
         <MainDiv>
-          <strong>Glad to have you back...</strong> <br /> Please move to
-          <i> Dashboard </i> tab to get started.
-          <br />
-          <Button></Button>
+          <MainDiv>
+            <h1>Glad to have you back...</h1>
+            <br />
+            <h3>
+              Please click the <i>Dashboard</i> tab to view your currency.
+            </h3>
+            <br />
+            <StyledLink to='/dashboard'>
+              <p>Dashboard</p>
+            </StyledLink>
+          </MainDiv>
         </MainDiv>
       )}
     </div>

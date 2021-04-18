@@ -30,6 +30,7 @@ const StyledLink = styled(Link)`
         ${(props) => (props.tab === '/about' ? css`2px` : css`0px`)} 2px
         ${(props) => (props.tab === '/' ? css`2px` : css`0px`)};
       border-color: var(--main-color-purple);
+      border-radius: var(--m-length-m);
       border-style: solid;
       padding: 2px 0px;
       color: var(--font-color-3);
@@ -42,7 +43,9 @@ const Navbar = ({ location }) => {
 
   return (
     <NavBar className='container'>
-      <Logo>CD</Logo>
+      <Logo>
+        <i class='fab fa-bitcoin'></i> CD
+      </Logo>
       <div></div>
       <StyledLink to='/' active={'/' === page ? true : false} tab={page}>
         <p> Home </p>
