@@ -7,7 +7,7 @@ const Settings = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
 
   const {
-    cryptoData,
+    favourites,
     firstVisit,
     setPage,
     setFavourites,
@@ -16,13 +16,9 @@ const Settings = ({ location }) => {
 
   useEffect(() => {
     setPage(location.pathname);
+    setFavourites();
+    setFirstVisit(favourites === null);
     // eslint-disable-next-line
-    if (!cryptoData) {
-      setFirstVisit(true);
-    } else {
-      setFirstVisit(false);
-      setFavourites();
-    }
   }, []);
 
   const StyledLink = styled(Link)`
@@ -66,13 +62,28 @@ const Settings = ({ location }) => {
     }
   `;
 
+  const setValueInLocalStorage = (value) => {
+    localStorage.setItem('cryptoData', JSON.stringify(value));
+  };
+
+  const onClick = () => {
+    if (favourites === null) {
+      setValueInLocalStorage({ test: 'hello world' });
+      setFavourites();
+      setFirstVisit(false);
+    } else {
+      setFavourites();
+      setFirstVisit(false);
+    }
+  };
+
   return (
     <MainDiv>
       <StyledLink
-        // onClick={onClick}
+        onClick={onClick}
         to={firstVisit ? '/settings' : '/dashboard'}
       >
-        Get Started !
+        {firstVisit ? 'Get Started !' : 'Continue!'}
       </StyledLink>
     </MainDiv>
   );

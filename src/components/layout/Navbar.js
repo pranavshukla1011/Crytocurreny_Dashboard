@@ -44,7 +44,7 @@ const Navbar = ({ location }) => {
   return (
     <NavBar className='container'>
       <Logo>
-        <i class='fab fa-bitcoin'></i> CD
+        <i className='fab fa-bitcoin'></i> CD
       </Logo>
       <div></div>
       <StyledLink to='/' active={'/' === page ? true : false} tab={page}>
