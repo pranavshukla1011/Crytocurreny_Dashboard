@@ -7,7 +7,7 @@ import DashboardContext from '../../Context/DashboardContext';
 
 const Logo = styled.div`
   font-size: var(--m-length-l);
-  animation: animate1 2s infinite alternate;
+  animation: animate1 1.5s infinite alternate;
 `;
 
 const NavBar = styled.div`
@@ -22,7 +22,7 @@ const StyledLink = styled(Link)`
   color: var(--main-color-purple);
   margin: var(--s-length-m);
   text-align: center;
-  transition: all 300ms ease-in-out;
+  transition: all 250ms ease-in-out;
   ${(props) =>
     props.active === true &&
     css`
