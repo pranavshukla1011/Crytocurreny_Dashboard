@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
+import Spinner from '../layout/spinner';
 
 const Dashboard = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
@@ -9,6 +10,7 @@ const Dashboard = ({ location }) => {
     setPage,
     setFavourites,
     setFirstVisit,
+    setCoinList,
   } = dashboardContext;
 
   useEffect(() => {
@@ -16,7 +18,13 @@ const Dashboard = ({ location }) => {
     // eslint-disable-next-line
   }, []);
 
-  return <div>Dashboard</div>;
+  setCoinList();
+
+  if (dashboardContext.loading === true) {
+    return <Spinner />;
+  } else {
+    return <div>Dashboard</div>;
+  }
 };
 
 export default Dashboard;

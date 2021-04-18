@@ -48,8 +48,8 @@ const Navbar = ({ location }) => {
     setFirstVisit,
   } = dashboardContext;
 
-  useEffect(async () => {
-    await setFavourites();
+  useEffect(() => {
+    setFavourites();
     if (favourites) {
       setFirstVisit(false);
     } else {

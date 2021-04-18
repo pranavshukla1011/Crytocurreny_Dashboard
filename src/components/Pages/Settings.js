@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import Spinner from '../layout/spinner';
 
 const Settings = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
@@ -75,13 +76,17 @@ const Settings = ({ location }) => {
     }
   };
 
-  return (
-    <MainDiv>
-      <StyledLink onClick={onClick} to='/dashboard'>
-        {firstVisit ? 'Get Started !' : 'Continue!'}
-      </StyledLink>
-    </MainDiv>
-  );
+  if (dashboardContext.loading === true) {
+    return <Spinner />;
+  } else {
+    return (
+      <MainDiv>
+        <StyledLink onClick={onClick} to='/dashboard'>
+          {firstVisit ? 'Get Started !' : 'Continue!'}
+        </StyledLink>
+      </MainDiv>
+    );
+  }
 };
 
 export default Settings;

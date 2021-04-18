@@ -23,7 +23,10 @@ export default (state, action) => {
         favourites: JSON.parse(localStorage.getItem('cryptoData')),
       };
     case SET_COIN_LIST:
-      return;
+      return {
+        ...state,
+        coinList: action.payload,
+      };
     default:
       return state;
   }
