@@ -16,9 +16,8 @@ const Dashboard = ({ location }) => {
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
+    setCoinList();
   }, []);
-
-  setCoinList();
 
   if (dashboardContext.loading === true) {
     return <Spinner />;

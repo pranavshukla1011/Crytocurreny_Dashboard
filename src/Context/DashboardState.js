@@ -39,8 +39,7 @@ const DashboardState = (props) => {
 
   const setCoinList = async () => {
     let coinData = await cc.coinList();
-    console.log(coinData);
-    dispatch({ type: SET_COIN_LIST, payload: coinData });
+    dispatch({ type: SET_COIN_LIST, payload: coinData.Data });
   };
 
   return (

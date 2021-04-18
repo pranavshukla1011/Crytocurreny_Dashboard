@@ -45,3 +45,52 @@ body {
     color: var(--main-color-pink);
   }
 }
+
+.spinner {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+#loader {
+  top: 40px;
+  left: -2.5px;
+}
+
+#loader span {
+  display: inline-block;
+  width: 5px;
+  height: 20px;
+  margin: 5px;
+}
+
+#loader span:nth-child(1) {
+  animation: animate2 1.5s ease-in-out infinite;
+}
+
+#loader span:nth-child(2) {
+  animation: animate2 1.5s ease-in-out 0.15s infinite;
+}
+
+#loader span:nth-child(3) {
+  animation: animate2 1.5s ease-in-out 0.3s infinite;
+}
+
+#loader span:nth-child(4) {
+  animation: animate2 1.5s ease-in-out 0.45s infinite;
+}
+
+@keyframes animate2 {
+  0%,
+  100% {
+    transform: scale(1, 1);
+    background-color: var(--main-color-purple);
+  }
+
+  50% {
+    transform: scale(2, 2);
+    background-color: var(--main-color-pink);
+  }
+}

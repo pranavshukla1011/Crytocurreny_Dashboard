@@ -3,17 +3,12 @@ import spinner from './spinner.gif';
 
 const Spinner = () => {
   return (
-    <Fragment>
-      <img
-        src={spinner}
-        alt='loading results...'
-        style={{
-          width: '200px',
-          margin: 'auto',
-          display: 'block',
-        }}
-      />
-    </Fragment>
+    <div class='spinner' id='loader'>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   );
 };
 

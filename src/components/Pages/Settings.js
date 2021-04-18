@@ -11,13 +11,16 @@ const Settings = ({ location }) => {
     favourites,
     firstVisit,
     setPage,
+    coinList,
     setFavourites,
     setFirstVisit,
+    setCoinList,
   } = dashboardContext;
 
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
+    setCoinList();
   }, []);
 
   const StyledLink = styled(Link)`
@@ -76,8 +79,12 @@ const Settings = ({ location }) => {
     }
   };
 
-  if (dashboardContext.loading === true) {
-    return <Spinner />;
+  if (!coinList) {
+    return (
+      <MainDiv>
+        <Spinner></Spinner>
+      </MainDiv>
+    );
   } else {
     return (
       <MainDiv>
