@@ -45,6 +45,14 @@ const Home = ({ location }) => {
     padding: 10px;
     font-size: var(--m-length-l);
     text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
+    transition-property: transform, text-shadow, color;
+    transition-duration: 150ms;
+    transition-iming-function: ease-in-out;
+    &:hover {
+      text-shadow: none;
+      transform: scale(1.1, 1.1);
+      color: var(--font-color-2);
+    }
   `;
 
   return (
