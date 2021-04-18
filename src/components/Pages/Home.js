@@ -99,39 +99,6 @@ const Home = ({ location }) => {
       </div>
     );
   }
-  return (
-    <div className='container'>
-      {firstVisit === true ? (
-        <MainDiv>
-          <h1>Hi Newbie...</h1>
-          <h2>Welcome to CryptoCurrency Dashboard.</h2>
-          <br />
-          <h3>
-            Please click the <i>Settings</i> tab to setup you currency to get
-            started.
-          </h3>
-          <br />
-          <StyledLink to='/settings'>
-            <p>Settings</p>
-          </StyledLink>
-        </MainDiv>
-      ) : (
-        <MainDiv>
-          <MainDiv>
-            <h1>Glad to have you back...</h1>
-            <br />
-            <h3>
-              Please click the <i>Dashboard</i> tab to view your currency.
-            </h3>
-            <br />
-            <StyledLink to='/dashboard'>
-              <p>Dashboard</p>
-            </StyledLink>
-          </MainDiv>
-        </MainDiv>
-      )}
-    </div>
-  );
 };
 
 export default Home;

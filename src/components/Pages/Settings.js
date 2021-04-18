@@ -77,10 +77,7 @@ const Settings = ({ location }) => {
 
   return (
     <MainDiv>
-      <StyledLink
-        onClick={onClick}
-        to={firstVisit ? '/settings' : '/dashboard'}
-      >
+      <StyledLink onClick={onClick} to='/dashboard'>
         {firstVisit ? 'Get Started !' : 'Continue!'}
       </StyledLink>
     </MainDiv>
