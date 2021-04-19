@@ -1,4 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  Fragment,
+  useRef,
+} from 'react';
 import DashboardContext from '../../Context/DashboardContext';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -11,25 +17,34 @@ const Settings = ({ location }) => {
     favourites,
     firstVisit,
     setPage,
-    coinList,
     setFavourites,
     setFirstVisit,
     setCoinList,
+    coinList,
+    filtered,
+    filterCoins,
+    clearFilter,
+    setFilterText,
   } = dashboardContext;
 
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
+    if (filtered === null) {
+      text = '';
+      setFilterText('');
+    }
+
     setCoinList();
   }, []);
 
   const StyledLink = styled(Link)`
     text-decoration: none;
     color: var(--font-color-3);
-    border: 2px solid var(--main-color-purple);
+    animation: animate3 5s infinite alternate;
     border-radius: var(--m-length-m);
     padding: 10px;
-    font-size: var(--m-length-l);
+    font-size: var(--m-length-m);
     // text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
     transition-property: transform, color;
     transition-duration: 150ms;
@@ -44,12 +59,11 @@ const Settings = ({ location }) => {
     text-align: center;
     display: flex;
     flex-direction: column;
-    // border: 2px solid white;
-    height: 60vh;
+    animation: animate3 5s infinite alternate;
     align-items: center;
     justify-content: center;
     color: var(--font-color-3);
-
+    margin: 20px 10px;
     & h1 {
       font-size: var(--l-length-m);
     }
@@ -60,8 +74,48 @@ const Settings = ({ location }) => {
 
     & h3 {
       margin: var(--m-length-m) 0 0 0;
-      font-size: var(--m-length-m);
+      font-size: var(--m-length-l);
     }
+  `;
+
+  const SpinnerDiv = styled.div`
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+  `;
+
+  const CoinGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin: 20px 10px;
+  `;
+
+  const StyledInputSubmit = styled.input`
+    text-decoration: none;
+    color: var(--font-color-3);
+    animation: animate3 5s infinite alternate;
+    border-radius: var(--m-length-m);
+    padding: 10px;
+    font-size: var(--m-length-l);
+    // text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
+    transition-property: transform, color;
+    transition-duration: 150ms;
+    transition-timing-function: ease-in-out;
+    &:hover {
+      transform: scale(1.1, 1.1);
+      color: var(--font-color-2);
+    }
+    background-color: inherit;
+    cursor: pointer;
+  `;
+
+  const Filter = styled.form`
+    display: grid;
+    padding: 0 40px;
+    grid-template-columns: 6fr 1fr 2fr;
+    margin: 20px 10px;
   `;
 
   const setValueInLocalStorage = (value) => {
@@ -79,19 +133,58 @@ const Settings = ({ location }) => {
     }
   };
 
+  let text = useRef('');
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (text.current.value !== '') {
+      filterCoins(text.current.value);
+      setFilterText(text.current.value);
+    } else {
+      clearFilter();
+    }
+  };
+
   if (!coinList) {
     return (
-      <MainDiv>
+      <SpinnerDiv>
         <Spinner></Spinner>
-      </MainDiv>
+      </SpinnerDiv>
     );
   } else {
+    console.log('CoinGrid Started');
     return (
-      <MainDiv>
-        <StyledLink onClick={onClick} to='/dashboard'>
-          {firstVisit ? 'Get Started !' : 'Continue!'}
-        </StyledLink>
-      </MainDiv>
+      <Fragment>
+        <MainDiv className='card-dark'>
+          <h3>
+            Choose a Currency from the menu below and lets get started....
+          </h3>
+          <br />
+          <StyledLink onClick={onClick} to='/dashboard'>
+            {firstVisit ? 'Get Started !' : 'Continue!'}
+          </StyledLink>
+        </MainDiv>
+        <Filter action='' onSubmit={onSubmit}>
+          <input
+            ref={text}
+            type='text'
+            name='text'
+            placeholder='Filter Coins...'
+            id='filterCoins'
+          />
+          <div></div>
+          <StyledInputSubmit type='submit' value='Filter' />
+        </Filter>
+        <CoinGrid>
+          {filtered !== null
+            ? Object.keys(filtered).map((CoinKey) => (
+                <div className='card-dark'>{CoinKey}</div>
+              ))
+            : Object.keys(coinList).map((CoinKey) => (
+                <div className='card-dark'>{CoinKey}</div>
+              ))}
+        </CoinGrid>
+      </Fragment>
     );
   }
 };

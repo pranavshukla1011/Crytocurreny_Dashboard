@@ -6,7 +6,7 @@ import DashboardContext from '../../Context/DashboardContext';
 // animation: name duration timing-function delay iteration-count direction fill-mode play-state;
 
 const Logo = styled.div`
-  font-size: var(--m-length-l);
+  font-size: var(--l-length-s);
   animation: animate1 1.5s infinite alternate;
 `;
 
@@ -46,6 +46,7 @@ const Navbar = ({ location }) => {
     setPage,
     setFavourites,
     setFirstVisit,
+    setCoinList,
   } = dashboardContext;
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const Navbar = ({ location }) => {
       setFirstVisit(true);
     }
     // eslint-disable-next-line
-  }, [firstVisit, page]);
+  }, [page]);
 
   return (
     <NavBar className='container'>

@@ -13,6 +13,7 @@ const Home = ({ location }) => {
     setPage,
     setFavourites,
     setFirstVisit,
+    setCoinList,
   } = dashboardContext;
 
   useEffect(() => {

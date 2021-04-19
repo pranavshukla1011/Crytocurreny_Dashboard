@@ -16,7 +16,6 @@ const Dashboard = ({ location }) => {
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
-    setCoinList();
   }, []);
 
   if (dashboardContext.loading === true) {

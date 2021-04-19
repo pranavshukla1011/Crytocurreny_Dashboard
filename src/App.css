@@ -46,6 +46,7 @@ body {
   }
 }
 
+/*Spinner*/
 .spinner {
   width: 100px;
   height: 100px;
@@ -62,7 +63,7 @@ body {
 #loader span {
   display: inline-block;
   width: 5px;
-  height: 20px;
+  height: 30px;
   margin: 5px;
 }
 
@@ -93,4 +94,56 @@ body {
     transform: scale(2, 2);
     background-color: var(--main-color-pink);
   }
+}
+
+@keyframes animate3 {
+  from {
+    border: 1px solid var(--main-color-purple);
+  }
+  to {
+    border: 1px solid var(--main-color-pink);
+  }
+}
+/* Forms */
+input {
+  margin: 1.2rem 0;
+}
+
+.form-text {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--dark-color-3);
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='date'],
+select,
+textarea {
+  display: block;
+  width: 100%;
+  padding: var(--m-length-s) var(--m-length-m);
+  font-size: var(--m-length-s);
+  border: 2px solid var(--main-color-purple);
+  border-radius: 25px;
+}
+
+input[type='submit'],
+button {
+  font: inherit;
+}
+
+/*card*/
+.card-dark {
+  border-radius: 25px;
+  background-color: var(--dark-color-2);
+  padding: 10px 20px;
+  margin: 5px 10px;
+}
+.card-light {
+  border-radius: 25px;
+  background-color: var(--dark-color-3);
+  padding: 10px 20px;
+  margin: 5px 10px;
 }

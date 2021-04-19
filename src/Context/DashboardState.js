@@ -6,8 +6,11 @@ import {
   SET_FIRST_VISIT,
   SET_FAVOURITES,
   SET_COIN_LIST,
+  SET_FILTER,
+  CLEAR_FILTER,
+  SET_FILTER_TEXT,
 } from '../Context/types';
-import cc from 'cryptocompare';
+import cc, { coinList } from 'cryptocompare';
 cc.setApiKey(
   '724862db550136603183e13b1c037c5261864518c32be4522aa428e895ddd035'
 );
@@ -19,6 +22,8 @@ const DashboardState = (props) => {
     firstVisit: false,
     favourites: null,
     coinList: null,
+    filtered: null,
+    filterText: null,
   };
 
   //props
@@ -42,6 +47,18 @@ const DashboardState = (props) => {
     dispatch({ type: SET_COIN_LIST, payload: coinData.Data });
   };
 
+  const filterCoins = (text) => {
+    dispatch({ type: SET_FILTER, payload: text });
+  };
+
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
+
+  const setFilterText = (text) => {
+    dispatch({ type: SET_FILTER_TEXT, payload: text });
+  };
+
   return (
     <DashboardContext.Provider
       value={{
@@ -49,6 +66,11 @@ const DashboardState = (props) => {
         firstVisit: state.firstVisit,
         favourites: state.favourites,
         coinList: state.coinList,
+        filtered: state.filtered,
+        filterText: state.filterText,
+        setFilterText,
+        filterCoins,
+        clearFilter,
         setPage,
         setFirstVisit,
         setFavourites,
