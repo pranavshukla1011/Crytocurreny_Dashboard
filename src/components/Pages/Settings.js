@@ -230,6 +230,7 @@ const Settings = ({ location }) => {
             <div className='card-dark'>{coinKey}</div>
           ))}
         </CoinGrid>
+        {coinIndex >= coins.length ? {} : <Spinner></Spinner>}
       </Fragment>
     );
   }
