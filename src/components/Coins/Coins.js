@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from 'react';
 import styled from 'styled-components';
 import DashboardContext from '../../Context/DashboardContext';
 import Spinner from '../layout/spinner';
-
+import CoinItem from './CoinItem';
 const CoinGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -54,12 +54,17 @@ const Coins = () => {
         createCoinCard(coins[i]);
       }
       coinIndex += i;
+    } else {
+      for (i = coinIndex; i < coins.length; i++) {
+        createCoinCard(coins[i]);
+      }
+      coinIndex = coins.length;
     }
   }
 
   function createCoinCard(coinKey) {
     const container = document.querySelector('#coinGridContainer');
-    const coinCard = document.createElement(CoinCard);
+    const coinCard = document.createElement('CoinCard');
     coinCard.className = 'card-dark';
     coinCard.key = coinList[coinKey].Id;
     coinCard.innerHTML = `${coinKey}`;
@@ -72,7 +77,7 @@ const Coins = () => {
       <CoinGrid id='coinGridContainer'>
         {coins.slice(0, 90).map((coinKey) => (
           <CoinCard className='card-dark' key={coinList[coinKey].Id}>
-            {coinKey}
+            ${coinKey}
           </CoinCard>
         ))}
       </CoinGrid>
