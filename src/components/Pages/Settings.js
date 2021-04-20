@@ -34,7 +34,6 @@ const Settings = ({ location }) => {
       text = '';
       setFilterText('');
     }
-
     setCoinList();
   }, []);
 
@@ -53,6 +52,7 @@ const Settings = ({ location }) => {
       transform: scale(1.1, 1.1);
       color: var(--font-color-2);
     }
+    margin: var(--m-length-l);
   `;
 
   const MainDiv = styled.div`
@@ -87,7 +87,7 @@ const Settings = ({ location }) => {
 
   const CoinGrid = styled.div`
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     text-align: center;
     margin: 20px 10px;
   `;
@@ -115,7 +115,7 @@ const Settings = ({ location }) => {
     display: grid;
     padding: 0 40px;
     grid-template-columns: 6fr 1fr 2fr;
-    margin: 20px 10px;
+    margin: var(--m-length-l);
   `;
 
   const setValueInLocalStorage = (value) => {
@@ -147,12 +147,62 @@ const Settings = ({ location }) => {
 
   if (!coinList) {
     return (
-      <SpinnerDiv>
-        <Spinner></Spinner>
-      </SpinnerDiv>
+      <Fragment>
+        <SpinnerDiv>
+          <Spinner></Spinner>
+        </SpinnerDiv>
+      </Fragment>
     );
   } else {
     console.log('CoinGrid Started');
+
+    //Infinite Scroll
+
+    let coins;
+
+    if (filtered !== null) {
+      coins = Object.keys(filtered);
+    } else {
+      coins = Object.keys(coinList);
+    }
+
+    console.log(coins);
+
+    let coinIndex = 91;
+
+    window.addEventListener('scroll', () => {
+      const {
+        scrollHeight,
+        scrollTop,
+        clientHeight,
+      } = document.documentElement;
+
+      if (scrollTop + clientHeight > scrollHeight - 5) {
+        <Spinner />;
+        setTimeout(createCoinGrid(coinIndex), 2000);
+      }
+    });
+
+    function createCoinGrid(coinIndex) {
+      let i;
+      if (coinIndex + 90 < coins.length) {
+        for (i = coinIndex; i < coinIndex + 91; i++) {
+          createCoinCard(coins[i]);
+        }
+        coinIndex += i;
+      }
+    }
+
+    function createCoinCard(coinKey) {
+      const container = document.querySelector('#coinGridContainer');
+      const coinCard = document.createElement('div');
+      coinCard.className = 'card-dark';
+      coinCard.innerHTML = `${coinKey}`;
+      container.appendChild(coinCard);
+    }
+
+    //Infinite Scroll Over
+
     return (
       <Fragment>
         <MainDiv className='card-dark'>
@@ -175,14 +225,10 @@ const Settings = ({ location }) => {
           <div></div>
           <StyledInputSubmit type='submit' value='Filter' />
         </Filter>
-        <CoinGrid>
-          {filtered !== null
-            ? Object.keys(filtered).map((CoinKey) => (
-                <div className='card-dark'>{CoinKey}</div>
-              ))
-            : Object.keys(coinList).map((CoinKey) => (
-                <div className='card-dark'>{CoinKey}</div>
-              ))}
+        <CoinGrid id='coinGridContainer'>
+          {coins.slice(0, 90).map((coinKey) => (
+            <div className='card-dark'>{coinKey}</div>
+          ))}
         </CoinGrid>
       </Fragment>
     );

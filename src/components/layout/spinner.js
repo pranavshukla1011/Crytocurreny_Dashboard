@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 const Spinner = () => {
   return (
-    <div class='spinner' id='loader'>
+    <div className='spinner' id='loader'>
       <span></span>
       <span></span>
       <span></span>
