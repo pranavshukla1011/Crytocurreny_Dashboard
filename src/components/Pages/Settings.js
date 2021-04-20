@@ -9,6 +9,7 @@ import DashboardContext from '../../Context/DashboardContext';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Spinner from '../layout/spinner';
+import Coins from '../Coins/Coins';
 
 const Settings = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
@@ -85,13 +86,6 @@ const Settings = ({ location }) => {
     height: 60vh;
   `;
 
-  const CoinGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    text-align: center;
-    margin: 20px 10px;
-  `;
-
   const StyledInputSubmit = styled.input`
     text-decoration: none;
     color: var(--font-color-3);
@@ -154,55 +148,6 @@ const Settings = ({ location }) => {
       </Fragment>
     );
   } else {
-    console.log('CoinGrid Started');
-
-    //Infinite Scroll
-
-    let coins;
-
-    if (filtered !== null) {
-      coins = Object.keys(filtered);
-    } else {
-      coins = Object.keys(coinList);
-    }
-
-    console.log(coins);
-
-    let coinIndex = 91;
-
-    window.addEventListener('scroll', () => {
-      const {
-        scrollHeight,
-        scrollTop,
-        clientHeight,
-      } = document.documentElement;
-
-      if (scrollTop + clientHeight > scrollHeight - 5) {
-        <Spinner />;
-        setTimeout(createCoinGrid(coinIndex), 2000);
-      }
-    });
-
-    function createCoinGrid(coinIndex) {
-      let i;
-      if (coinIndex + 90 < coins.length) {
-        for (i = coinIndex; i < coinIndex + 91; i++) {
-          createCoinCard(coins[i]);
-        }
-        coinIndex += i;
-      }
-    }
-
-    function createCoinCard(coinKey) {
-      const container = document.querySelector('#coinGridContainer');
-      const coinCard = document.createElement('div');
-      coinCard.className = 'card-dark';
-      coinCard.innerHTML = `${coinKey}`;
-      container.appendChild(coinCard);
-    }
-
-    //Infinite Scroll Over
-
     return (
       <Fragment>
         <MainDiv className='card-dark'>
@@ -225,12 +170,7 @@ const Settings = ({ location }) => {
           <div></div>
           <StyledInputSubmit type='submit' value='Filter' />
         </Filter>
-        <CoinGrid id='coinGridContainer'>
-          {coins.slice(0, 90).map((coinKey) => (
-            <div className='card-dark'>{coinKey}</div>
-          ))}
-        </CoinGrid>
-        {coinIndex >= coins.length ? {} : <Spinner></Spinner>}
+        <Coins />
       </Fragment>
     );
   }
