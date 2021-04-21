@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Spinner from '../layout/spinner';
 import Coins from '../Coins/Coins';
+import FavouriteCoins from '../Coins/FavouriteCoins';
 const Settings = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
 
@@ -84,13 +85,6 @@ const Settings = ({ location }) => {
     height: 60vh;
   `;
 
-  const CoinGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    margin: 20px 10px;
-  `;
-
   const StyledInputSubmit = styled.input`
     text-decoration: none;
     color: var(--font-color-3);
@@ -155,15 +149,20 @@ const Settings = ({ location }) => {
   } else {
     return (
       <Fragment>
-        <MainDiv className='card-dark'>
-          <h3>
-            Choose a Currency from the menu below and lets get started....
-          </h3>
-          <br />
-          <StyledLink onClick={onClick} to='/dashboard'>
-            {firstVisit ? 'Get Started !' : 'Continue!'}
-          </StyledLink>
-        </MainDiv>
+        {favourites !== null ? (
+          <FavouriteCoins></FavouriteCoins>
+        ) : (
+          <MainDiv className='card-dark'>
+            <h3>
+              Choose a Currency from the menu below and lets get started....
+            </h3>
+            <br />
+            <StyledLink onClick={onClick} to='/dashboard'>
+              {firstVisit ? 'Get Started !' : 'Continue!'}
+            </StyledLink>
+          </MainDiv>
+        )}
+
         <Filter action='' onSubmit={onSubmit}>
           <input
             ref={text}

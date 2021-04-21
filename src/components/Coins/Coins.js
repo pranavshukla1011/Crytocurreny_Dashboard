@@ -7,7 +7,6 @@ const CoinGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   text-align: center;
-  margin: 20px 10px;
 `;
 
 const Coins = () => {
@@ -59,25 +58,54 @@ const Coins = () => {
     const container = document.querySelector('#coinGridContainer');
 
     const coinCard = document.createElement('div');
-    coinCard.className = 'coin-dark';
-    coinCard.innerHTML = `${coinKey}`;
-    // const coinCard = (
-    //   <Fragment>
-    //     <CoinCard className='card-dark' key={coinList[coinKey].Id}>
-    //       ${coinKey}
-    //     </CoinCard>
-    //   </Fragment>
-    // );
+    coinCard.className = 'coin-light';
+    coinCard.key = coinList[coinKey].Id;
+
+    coinCard.innerHTML = `
+        <div class='coin-grid'>
+            <div>${coinList[coinKey].CoinName}</div>
+            <div style= 'justify-self: right;'>
+                ${coinList[coinKey].Symbol}
+            </div>
+        </div>
+        <img
+        style='height: 50px'
+        src=${`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
+        alt='<coin image>'
+      />
+
+    `;
+
     container.appendChild(coinCard);
   }
 
+  console.log(coinList[coins[0]]);
+
+  function imageLoaded() {
+    return true;
+  }
+
+  function imageNotLoaded() {
+    return false;
+  }
   //Infinite Scroll Over
   return (
     <Fragment>
-      <CoinGrid id='coinGridContainer'>
+      <CoinGrid id='coinGridContainer' className='card-dark'>
         {coins.slice(0, 90).map((coinKey) => (
-          <div className='coin-dark' key={coinList[coinKey].Id}>
-            ${coinKey}
+          <div className='coin-light' key={coinList[coinKey].Id}>
+            <div className='coin-grid'>
+              <div>{coinList[coinKey].CoinName}</div>
+              <div style={{ justifySelf: 'right' }}>
+                {coinList[coinKey].Symbol}
+              </div>
+            </div>
+
+            <img
+              style={{ height: '50px' }}
+              src={`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
+              alt='<coin image>'
+            />
           </div>
         ))}
       </CoinGrid>
