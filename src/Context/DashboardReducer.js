@@ -6,6 +6,9 @@ import {
   SET_FILTER,
   CLEAR_FILTER,
   SET_FILTER_TEXT,
+  SET_CURRENT,
+  DELETE_CURRENT,
+  DELETE_FAVOURITES_ITEM,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -44,6 +47,18 @@ export default (state, action) => {
       return {
         ...state,
         filterText: action.payload,
+      };
+
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: [...state.current, action.payload],
+      };
+
+    case DELETE_CURRENT:
+      return {
+        ...state,
+        current: state.current.filter((coinKey) => coinKey != action.payload),
       };
     default:
       return state;

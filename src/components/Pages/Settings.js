@@ -26,6 +26,7 @@ const Settings = ({ location }) => {
     filterCoins,
     clearFilter,
     setFilterText,
+    current,
   } = dashboardContext;
 
   useEffect(() => {
@@ -36,9 +37,14 @@ const Settings = ({ location }) => {
       setFilterText('');
     }
     setCoinList();
-  }, [firstVisit]);
+    if (favourites) {
+      setFirstVisit(false);
+    } else {
+      setFirstVisit(true);
+    }
+  }, []);
 
-  const StyledLink = styled(Link)`
+  const StyledLink = styled.div`
     text-decoration: none;
     color: var(--font-color-3);
     animation: animate3 5s infinite alternate;
@@ -53,6 +59,7 @@ const Settings = ({ location }) => {
       transform: scale(1.1, 1.1);
       color: var(--font-color-2);
     }
+    cursor: pointer;
   `;
 
   const MainDiv = styled.div`
@@ -116,14 +123,18 @@ const Settings = ({ location }) => {
   };
 
   const onClick = () => {
-    if (favourites === null) {
-      setValueInLocalStorage({ test: 'hello world' });
-      setFavourites();
-      setFirstVisit(false);
-    } else {
-      setFavourites();
-      setFirstVisit(false);
-    }
+    if (current.length === 0) setValueInLocalStorage(null);
+    else
+      setValueInLocalStorage(
+        current.map((coinKey) => {
+          return {
+            [coinKey]: coinList[coinKey],
+          };
+        })
+      );
+
+    setFavourites();
+    setFirstVisit(false);
   };
 
   let text = useRef('');
@@ -141,6 +152,13 @@ const Settings = ({ location }) => {
   if (!coinList) {
     return (
       <Fragment>
+        {favourites !== null ? (
+          <FavouriteCoins></FavouriteCoins>
+        ) : (
+          <div style={{ textAlign: 'center' }} className='card-dark'>
+            <h3>You have no favourites...</h3>
+          </div>
+        )}
         <SpinnerDiv>
           <Spinner></Spinner>
         </SpinnerDiv>
@@ -156,14 +174,18 @@ const Settings = ({ location }) => {
             <h3>You have no favourites...</h3>
           </div>
         )}
-
         <MainDiv className='card-dark'>
-          <h3>
-            Choose a Currency from the menu below and lets get started....
-          </h3>
+          {firstVisit ? (
+            <h3>Choose coin(s) from the menu below and lets get started....</h3>
+          ) : (
+            <h3>
+              Select a currency from below and click the button to edit your
+              favourites...
+            </h3>
+          )}
           <br />
-          <StyledLink onClick={onClick} to='/dashboard'>
-            {firstVisit ? 'Get Started !' : 'Continue!'}
+          <StyledLink onClick={onClick}>
+            {firstVisit ? 'Confirm Favourites !' : 'Edit Favourites!'}
           </StyledLink>
         </MainDiv>
 

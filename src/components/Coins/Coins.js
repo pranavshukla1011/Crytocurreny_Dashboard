@@ -12,7 +12,16 @@ const CoinGrid = styled.div`
 const Coins = () => {
   const dashboardContext = useContext(DashboardContext);
 
-  const { coinList, filtered } = dashboardContext;
+  const {
+    coinList,
+    filtered,
+    favourites,
+    setFavourites,
+    setFirstVisit,
+    current,
+    setCurrent,
+    deleteCurrent,
+  } = dashboardContext;
 
   console.log('CoinGrid Started');
 
@@ -58,22 +67,27 @@ const Coins = () => {
     const container = document.querySelector('#coinGridContainer');
 
     const coinCard = document.createElement('div');
-    coinCard.className = 'coin-light';
+    coinCard.className = 'coin-light coin-item';
     coinCard.key = coinList[coinKey].Id;
 
     coinCard.innerHTML = `
-        <div class='coin-grid'>
-            <div>${coinList[coinKey].CoinName}</div>
-            <div style= 'justify-self: right;'>
-                ${coinList[coinKey].Symbol}
-            </div>
+    <div class='coin-grid'>
+      <div>${coinList[coinKey].CoinName}</div>
+        <div style='justify-self: right'>
+          ${coinList[coinKey].Symbol}
         </div>
-        <img
-        style='height: 50px'
-        src=${`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
+      </div>
+
+      <img
+        style='height: 70px; margin: 10px 0'
+        src='http://cryptocompare.com/${coinList[coinKey].ImageUrl}'
         alt='<coin image>'
       />
-
+      <div class='coin-grid'>
+        <button class='coin-button'>Add</button>
+        <button class='coin-button'>Delete</button>
+      </div>
+    </div>
     `;
 
     container.appendChild(coinCard);
@@ -81,19 +95,45 @@ const Coins = () => {
 
   console.log(coinList[coins[0]]);
 
-  function imageLoaded() {
-    return true;
-  }
-
-  function imageNotLoaded() {
-    return false;
-  }
   //Infinite Scroll Over
+
+  const onClick = (e) => {
+    if (
+      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) !==
+      undefined
+    ) {
+      deleteCurrent(e.target.attributes.coinKey.nodeValue);
+    } else {
+      setCurrent(e.target.attributes.coinKey.nodeValue);
+    }
+  };
+
+  const onClickAdd = (e) => {
+    e.target.parentElement.parentElement.style.boxShadow =
+      '0px 0px 3px 3px var(--font-color-2)';
+    if (
+      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) ===
+      undefined
+    ) {
+      setCurrent(e.target.attributes.coinKey.nodeValue);
+    }
+  };
+
+  const onClickDelete = (e) => {
+    e.target.parentElement.parentElement.style.boxShadow = 'none';
+    if (
+      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) !==
+      undefined
+    ) {
+      deleteCurrent(e.target.attributes.coinKey.nodeValue);
+    }
+  };
+
   return (
     <Fragment>
       <CoinGrid id='coinGridContainer' className='card-dark'>
         {coins.slice(0, 90).map((coinKey) => (
-          <div className='coin-light' key={coinList[coinKey].Id}>
+          <div className='coin-light coin-item' key={coinList[coinKey].Id}>
             <div className='coin-grid'>
               <div>{coinList[coinKey].CoinName}</div>
               <div style={{ justifySelf: 'right' }}>
@@ -102,10 +142,27 @@ const Coins = () => {
             </div>
 
             <img
-              style={{ height: '50px' }}
+              style={{ height: '70px', margin: '10px 0' }}
               src={`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
               alt='<coin image>'
             />
+
+            <div className='coin-grid'>
+              <button
+                className='coin-button'
+                coinkey={coinKey}
+                onClick={onClickAdd}
+              >
+                Add
+              </button>
+              <button
+                className='coin-button'
+                coinkey={coinKey}
+                onClick={onClickDelete}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))}
       </CoinGrid>

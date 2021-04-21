@@ -9,6 +9,8 @@ import {
   SET_FILTER,
   CLEAR_FILTER,
   SET_FILTER_TEXT,
+  SET_CURRENT,
+  DELETE_CURRENT,
 } from '../Context/types';
 import cc, { coinList } from 'cryptocompare';
 cc.setApiKey(
@@ -24,6 +26,7 @@ const DashboardState = (props) => {
     coinList: null,
     filtered: null,
     filterText: null,
+    current: [],
   };
 
   //props
@@ -59,6 +62,13 @@ const DashboardState = (props) => {
     dispatch({ type: SET_FILTER_TEXT, payload: text });
   };
 
+  const setCurrent = (value) => {
+    dispatch({ type: SET_CURRENT, payload: value });
+  };
+
+  const deleteCurrent = (value) => {
+    dispatch({ type: DELETE_CURRENT, payload: value });
+  };
   return (
     <DashboardContext.Provider
       value={{
@@ -68,6 +78,7 @@ const DashboardState = (props) => {
         coinList: state.coinList,
         filtered: state.filtered,
         filterText: state.filterText,
+        current: state.current,
         setFilterText,
         filterCoins,
         clearFilter,
@@ -75,6 +86,8 @@ const DashboardState = (props) => {
         setFirstVisit,
         setFavourites,
         setCoinList,
+        setCurrent,
+        deleteCurrent,
       }}
     >
       {props.children}
