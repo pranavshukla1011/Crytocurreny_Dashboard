@@ -19,7 +19,12 @@ const Home = ({ location }) => {
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
-  }, []);
+    if (favourites) {
+      setFirstVisit(false);
+    } else {
+      setFirstVisit(true);
+    }
+  }, [firstVisit]);
 
   const MainDiv = styled.div`
     text-align: center;

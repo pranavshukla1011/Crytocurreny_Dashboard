@@ -31,6 +31,12 @@ const MainDiv = styled.div`
   }
 `;
 
+const FavouriteCoin = styled.div`
+  &:hover {
+    box-shadow: none;
+  }
+`;
+
 const FavouriteCoins = () => {
   const dashboardContext = useContext(DashboardContext);
 
@@ -48,7 +54,7 @@ const FavouriteCoins = () => {
           {Object.keys(coinList)
             .slice(0, 10)
             .map((coinKey) => (
-              <div className='coin-light' key={coinList[coinKey].Id}>
+              <FavouriteCoin className='coin-light' key={coinList[coinKey].Id}>
                 <div className='coin-grid'>
                   <div>{coinList[coinKey].CoinName}</div>
                   <div style={{ justifySelf: 'right' }}>
@@ -61,13 +67,13 @@ const FavouriteCoins = () => {
                   src={`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
                   alt='<coin image>'
                 />
-              </div>
+              </FavouriteCoin>
             ))}
         </CoinGrid>
       </div>
 
       <MainDiv>
-        <h3>Select any coin to add to your coins...</h3>
+        <h3>Select any coin to add to your favourites...</h3>
       </MainDiv>
     </Fragment>
   );

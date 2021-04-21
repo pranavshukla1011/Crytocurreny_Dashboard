@@ -36,7 +36,7 @@ const Settings = ({ location }) => {
       setFilterText('');
     }
     setCoinList();
-  }, []);
+  }, [firstVisit]);
 
   const StyledLink = styled(Link)`
     text-decoration: none;
@@ -152,16 +152,20 @@ const Settings = ({ location }) => {
         {favourites !== null ? (
           <FavouriteCoins></FavouriteCoins>
         ) : (
-          <MainDiv className='card-dark'>
-            <h3>
-              Choose a Currency from the menu below and lets get started....
-            </h3>
-            <br />
-            <StyledLink onClick={onClick} to='/dashboard'>
-              {firstVisit ? 'Get Started !' : 'Continue!'}
-            </StyledLink>
-          </MainDiv>
+          <div style={{ textAlign: 'center' }} className='card-dark'>
+            <h3>You have no favourites...</h3>
+          </div>
         )}
+
+        <MainDiv className='card-dark'>
+          <h3>
+            Choose a Currency from the menu below and lets get started....
+          </h3>
+          <br />
+          <StyledLink onClick={onClick} to='/dashboard'>
+            {firstVisit ? 'Get Started !' : 'Continue!'}
+          </StyledLink>
+        </MainDiv>
 
         <Filter action='' onSubmit={onSubmit}>
           <input

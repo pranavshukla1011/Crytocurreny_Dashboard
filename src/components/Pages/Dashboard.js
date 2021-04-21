@@ -16,7 +16,12 @@ const Dashboard = ({ location }) => {
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
-  }, []);
+    if (favourites) {
+      setFirstVisit(false);
+    } else {
+      setFirstVisit(true);
+    }
+  }, [firstVisit]);
 
   if (dashboardContext.loading === true) {
     return <Spinner />;
