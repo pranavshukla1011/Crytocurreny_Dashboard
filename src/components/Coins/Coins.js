@@ -10,13 +10,6 @@ const CoinGrid = styled.div`
   margin: 20px 10px;
 `;
 
-const CoinCard = styled.div`
-  &:hover {
-    box-shadow: 0px 0px 4px 3px var(--font-color-3);
-    cursor: pointer;
-  }
-`;
-
 const Coins = () => {
   const dashboardContext = useContext(DashboardContext);
 
@@ -64,10 +57,17 @@ const Coins = () => {
 
   function createCoinCard(coinKey) {
     const container = document.querySelector('#coinGridContainer');
-    const coinCard = document.createElement('CoinCard');
-    coinCard.className = 'card-dark';
-    coinCard.key = coinList[coinKey].Id;
+
+    const coinCard = document.createElement('div');
+    coinCard.className = 'coin-dark';
     coinCard.innerHTML = `${coinKey}`;
+    // const coinCard = (
+    //   <Fragment>
+    //     <CoinCard className='card-dark' key={coinList[coinKey].Id}>
+    //       ${coinKey}
+    //     </CoinCard>
+    //   </Fragment>
+    // );
     container.appendChild(coinCard);
   }
 
@@ -76,9 +76,9 @@ const Coins = () => {
     <Fragment>
       <CoinGrid id='coinGridContainer'>
         {coins.slice(0, 90).map((coinKey) => (
-          <CoinCard className='card-dark' key={coinList[coinKey].Id}>
+          <div className='coin-dark' key={coinList[coinKey].Id}>
             ${coinKey}
-          </CoinCard>
+          </div>
         ))}
       </CoinGrid>
       {coinIndex >= coins.length ? {} : <Spinner></Spinner>}

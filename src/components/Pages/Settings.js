@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Spinner from '../layout/spinner';
 import Coins from '../Coins/Coins';
-
 const Settings = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
 
@@ -53,7 +52,6 @@ const Settings = ({ location }) => {
       transform: scale(1.1, 1.1);
       color: var(--font-color-2);
     }
-    margin: var(--m-length-l);
   `;
 
   const MainDiv = styled.div`
@@ -86,6 +84,13 @@ const Settings = ({ location }) => {
     height: 60vh;
   `;
 
+  const CoinGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin: 20px 10px;
+  `;
+
   const StyledInputSubmit = styled.input`
     text-decoration: none;
     color: var(--font-color-3);
@@ -109,7 +114,7 @@ const Settings = ({ location }) => {
     display: grid;
     padding: 0 40px;
     grid-template-columns: 6fr 1fr 2fr;
-    margin: var(--m-length-l);
+    margin: 20px 10px;
   `;
 
   const setValueInLocalStorage = (value) => {
