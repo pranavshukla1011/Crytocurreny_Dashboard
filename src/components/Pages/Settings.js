@@ -185,7 +185,7 @@ const Settings = ({ location }) => {
           )}
           <br />
           <StyledLink onClick={onClick}>
-            {firstVisit ? 'Confirm Favourites !' : 'Edit Favourites!'}
+            {favourites === null ? 'Confirm Favourites !' : 'Edit Favourites!'}
           </StyledLink>
         </MainDiv>
 

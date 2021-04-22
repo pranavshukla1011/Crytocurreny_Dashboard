@@ -97,17 +97,6 @@ const Coins = () => {
 
   //Infinite Scroll Over
 
-  const onClick = (e) => {
-    if (
-      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) !==
-      undefined
-    ) {
-      deleteCurrent(e.target.attributes.coinKey.nodeValue);
-    } else {
-      setCurrent(e.target.attributes.coinKey.nodeValue);
-    }
-  };
-
   const onClickAdd = (e) => {
     e.target.parentElement.parentElement.style.boxShadow =
       '0px 0px 3px 3px var(--font-color-2)';

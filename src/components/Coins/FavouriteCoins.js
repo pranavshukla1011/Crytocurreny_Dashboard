@@ -26,7 +26,6 @@ const MainDiv = styled.div`
   }
 
   & h3 {
-    margin: var(--m-length-m) 0 0 0;
     font-size: var(--m-length-l);
   }
 `;
@@ -37,19 +36,73 @@ const FavouriteCoin = styled.div`
   }
 `;
 
+const FavouriteDeleteButton = styled.button`
+  text-align: center;
+  margin: 5px 5px;
+  padding: 3px 10px;
+  background-color: var(--font-color-1);
+  border-style: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition-property: animation, background-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  &:hover {
+    background-color: var(--font-color-2);
+    animation: animate3 5s infinite alternate;
+  }
+`;
+
+const FavouriteDeleteAllButton = styled.button`
+  text-align: center;
+  margin: 5px 5px;
+  padding: 3px 10px;
+  background-color: var(--font-color-1);
+  border-style: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition-property: animation, background-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  &:hover {
+    background-color: var(--font-color-2);
+    animation: animate3 5s infinite alternate;
+  }
+`;
+
 const FavouriteCoins = () => {
   const dashboardContext = useContext(DashboardContext);
 
-  const { favourites } = dashboardContext;
+  const { favourites, setFavourites } = dashboardContext;
 
   console.log('Favourites Grid Started');
+
+  const onClickDelete = (e) => {
+    let cryptoData = JSON.parse(localStorage.getItem('cryptoData'));
+    console.log(cryptoData);
+    cryptoData = cryptoData.filter(
+      (coinObject) =>
+        Object.keys(coinObject).toString() !== e.target.id.toString()
+    );
+    if (cryptoData.length !== 0) {
+      localStorage.setItem('cryptoData', JSON.stringify(cryptoData));
+    } else {
+      localStorage.setItem('cryptoData', JSON.stringify(null));
+    }
+    setFavourites();
+  };
+
+  const onClickDeleteAll = () => {
+    localStorage.setItem('cryptoData', JSON.stringify(null));
+    setFavourites();
+  };
 
   const favCoins = {};
 
   for (let i = 0; i < favourites.length; i++) {
     favCoins[Object.keys(favourites[i])] = Object.values(favourites[i])[0];
   }
-  console.log(favCoins);
+
   return (
     <Fragment>
       <div className='card-dark'>
@@ -71,9 +124,18 @@ const FavouriteCoins = () => {
                 src={`http://cryptocompare.com/${favCoins[coinKey].ImageUrl}`}
                 alt='<coin image>'
               />
+              <div></div>
+              <FavouriteDeleteButton id={coinKey} onClick={onClickDelete}>
+                Delete
+              </FavouriteDeleteButton>
             </FavouriteCoin>
           ))}
         </CoinGrid>
+        <MainDiv>
+          <FavouriteDeleteAllButton onClick={onClickDeleteAll}>
+            <h3>Delete All</h3>
+          </FavouriteDeleteAllButton>
+        </MainDiv>
       </div>
 
       <MainDiv>
