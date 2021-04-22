@@ -184,12 +184,14 @@ button {
   border-style: none;
   cursor: pointer;
   border: 1px solid transparent;
-  transition-property: animation, background-color;
+  transition-property: animation, background-color, transform;
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
+  border-radius: var(--m-length-m);
 }
 
 .coin-button:hover {
   background-color: var(--font-color-2);
   animation: animate3 5s infinite alternate;
+  transform: scale(1.1, 1.1);
 }

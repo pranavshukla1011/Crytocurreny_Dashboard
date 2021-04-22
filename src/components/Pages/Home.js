@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -19,11 +19,7 @@ const Home = ({ location }) => {
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
-    if (favourites) {
-      setFirstVisit(false);
-    } else {
-      setFirstVisit(true);
-    }
+    setFirstVisit();
   }, [firstVisit]);
 
   const MainDiv = styled.div`
@@ -31,9 +27,9 @@ const Home = ({ location }) => {
     display: flex;
     flex-direction: column;
     // border: 2px solid white;
-    height: 60vh;
     align-items: center;
     justify-content: center;
+    height: 60vh;
     color: var(--font-color-3);
 
     & h1 {
@@ -73,25 +69,32 @@ const Home = ({ location }) => {
   } else {
     return (
       <div className='container'>
-        {firstVisit === true ? (
-          <MainDiv>
-            <h1>Hi Newbie...</h1>
-            <h2>Welcome to CryptoCurrency Dashboard.</h2>
-            <br />
-            <h3>
-              Please click the <i>Settings</i> tab to setup you currency to get
-              started.
-            </h3>
-            <br />
-            <StyledLink to='/settings'>
-              <p>Settings</p>
-            </StyledLink>
-          </MainDiv>
-        ) : (
-          <MainDiv>
-            <MainDiv>
+        <MainDiv>
+          {firstVisit === true || firstVisit == null ? (
+            <Fragment>
+              <h1>Hi Newbie...</h1>
+              <h2>Welcome to CryptoCurrency Dashboard.</h2>
+              <br />
+            </Fragment>
+          ) : (
+            <Fragment>
               <h1>Glad to have you back...</h1>
               <br />
+            </Fragment>
+          )}
+          {favourites === null ? (
+            <Fragment>
+              <h3>
+                Please click the <i>Settings</i> tab to setup you currency to
+                get started.
+              </h3>
+              <br />
+              <StyledLink to='/settings'>
+                <p>Settings</p>
+              </StyledLink>
+            </Fragment>
+          ) : (
+            <Fragment>
               <h3>
                 Please click the <i>Dashboard</i> tab to view your currency.
               </h3>
@@ -99,9 +102,9 @@ const Home = ({ location }) => {
               <StyledLink to='/dashboard'>
                 <p>Dashboard</p>
               </StyledLink>
-            </MainDiv>
-          </MainDiv>
-        )}
+            </Fragment>
+          )}
+        </MainDiv>
       </div>
     );
   }

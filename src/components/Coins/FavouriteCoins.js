@@ -4,7 +4,7 @@ import DashboardContext from '../../Context/DashboardContext';
 import Spinner from '../layout/spinner';
 const CoinGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   text-align: center;
   margin: 20px 10px;
 `;
@@ -31,9 +31,7 @@ const MainDiv = styled.div`
 `;
 
 const FavouriteCoin = styled.div`
-  &:hover {
-    box-shadow: none;
-  }
+  box-shadow: 0px 0px 1px 1px var(--main-color-pink);
 `;
 
 const FavouriteDeleteButton = styled.button`
@@ -44,30 +42,36 @@ const FavouriteDeleteButton = styled.button`
   border-style: none;
   cursor: pointer;
   border: 1px solid transparent;
-  transition-property: animation, background-color;
+  transition-property: animation, background-color, transform;
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
   &:hover {
     background-color: var(--font-color-2);
     animation: animate3 5s infinite alternate;
+    transform: scale(1.1, 1.1);
   }
+  border-radius: var(--m-length-m);
 `;
 
 const FavouriteDeleteAllButton = styled.button`
+  display: flex;
+  align-items: center;
   text-align: center;
   margin: 5px 5px;
-  padding: 3px 10px;
+  padding: 5px 10px;
   background-color: var(--font-color-1);
   border-style: none;
   cursor: pointer;
   border: 1px solid transparent;
-  transition-property: animation, background-color;
+  transition-property: animation, background-color, transform;
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
   &:hover {
     background-color: var(--font-color-2);
     animation: animate3 5s infinite alternate;
+    transform: scale(1.1, 1.1);
   }
+  border-radius: var(--m-length-m);
 `;
 
 const FavouriteCoins = () => {

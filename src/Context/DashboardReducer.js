@@ -21,7 +21,7 @@ export default (state, action) => {
     case SET_FIRST_VISIT:
       return {
         ...state,
-        firstVisit: action.payload,
+        firstVisit: JSON.parse(localStorage.getItem('firstVisit')),
       };
     case SET_FAVOURITES:
       return {

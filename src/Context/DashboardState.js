@@ -21,7 +21,7 @@ const DashboardState = (props) => {
   //initial state
   const initialState = {
     page: '/',
-    firstVisit: false,
+    firstVisit: true,
     favourites: null,
     coinList: null,
     filtered: null,
@@ -37,8 +37,8 @@ const DashboardState = (props) => {
     dispatch({ type: SET_PAGE, payload: path });
   };
 
-  const setFirstVisit = (value) => {
-    dispatch({ type: SET_FIRST_VISIT, payload: value });
+  const setFirstVisit = () => {
+    dispatch({ type: SET_FIRST_VISIT });
   };
 
   const setFavourites = () => {

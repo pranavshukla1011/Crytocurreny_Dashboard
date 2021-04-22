@@ -16,11 +16,8 @@ const Dashboard = ({ location }) => {
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
-    if (favourites) {
-      setFirstVisit(false);
-    } else {
-      setFirstVisit(true);
-    }
+    localStorage.setItem('firstVisit', JSON.stringify(false));
+    setFirstVisit();
   }, [firstVisit]);
 
   if (dashboardContext.loading === true) {

@@ -5,7 +5,7 @@ import Spinner from '../layout/spinner';
 import CoinItem from './CoinItem';
 const CoinGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   text-align: center;
 `;
 

@@ -51,11 +51,7 @@ const Navbar = ({ location }) => {
 
   useEffect(() => {
     setFavourites();
-    if (favourites) {
-      setFirstVisit(false);
-    } else {
-      setFirstVisit(true);
-    }
+    setFirstVisit();
     // eslint-disable-next-line
   }, [page]);
 

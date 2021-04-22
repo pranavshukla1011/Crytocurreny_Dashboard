@@ -37,11 +37,8 @@ const Settings = ({ location }) => {
       setFilterText('');
     }
     setCoinList();
-    if (favourites) {
-      setFirstVisit(false);
-    } else {
-      setFirstVisit(true);
-    }
+    localStorage.setItem('firstVisit', JSON.stringify(false));
+    setFirstVisit();
   }, []);
 
   const StyledLink = styled.div`
@@ -134,7 +131,8 @@ const Settings = ({ location }) => {
       );
 
     setFavourites();
-    setFirstVisit(false);
+    localStorage.setItem('firstVisit', JSON.stringify(false));
+    setFirstVisit();
   };
 
   let text = useRef('');
