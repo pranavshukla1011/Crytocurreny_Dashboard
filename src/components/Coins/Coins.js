@@ -138,14 +138,14 @@ const Coins = () => {
                 coinkey={coinKey}
                 onClick={onClickAdd}
               >
-                Add
+                Select
               </button>
               <button
                 className='coin-button'
                 coinkey={coinKey}
                 onClick={onClickDelete}
               >
-                Delete
+                Remove
               </button>
             </div>
           </div>

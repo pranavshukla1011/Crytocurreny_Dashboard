@@ -177,7 +177,7 @@ const Settings = ({ location }) => {
             <h3>Choose coin(s) from the menu below and lets get started....</h3>
           ) : (
             <h3>
-              Select a currency from below and click the button to edit your
+              Select a currency from below and click the button to modify your
               favourites...
             </h3>
           )}
