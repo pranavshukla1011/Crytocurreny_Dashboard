@@ -1,7 +1,6 @@
 import React, { useContext, Fragment } from 'react';
 import styled from 'styled-components';
 import DashboardContext from '../../Context/DashboardContext';
-import Spinner from '../layout/spinner';
 const CoinGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);

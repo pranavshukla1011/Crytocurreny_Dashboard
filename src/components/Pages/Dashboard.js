@@ -4,14 +4,7 @@ import Spinner from '../layout/spinner';
 
 const Dashboard = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
-  const {
-    favourites,
-    firstVisit,
-    setPage,
-    setFavourites,
-    setFirstVisit,
-    setCoinList,
-  } = dashboardContext;
+  const { firstVisit, setPage, setFirstVisit } = dashboardContext;
 
   useEffect(() => {
     setPage(location.pathname);

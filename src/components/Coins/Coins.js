@@ -2,7 +2,6 @@ import React, { useContext, Fragment } from 'react';
 import styled from 'styled-components';
 import DashboardContext from '../../Context/DashboardContext';
 import Spinner from '../layout/spinner';
-import CoinItem from './CoinItem';
 const CoinGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -15,9 +14,6 @@ const Coins = () => {
   const {
     coinList,
     filtered,
-    favourites,
-    setFavourites,
-    setFirstVisit,
     current,
     setCurrent,
     deleteCurrent,

@@ -3,13 +3,7 @@ import DashboardContext from '../../Context/DashboardContext';
 
 const About = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
-  const {
-    favourites,
-    firstVisit,
-    setPage,
-    setFavourites,
-    setFirstVisit,
-  } = dashboardContext;
+  const { setPage } = dashboardContext;
 
   useEffect(() => {
     setPage(location.pathname);
