@@ -39,16 +39,24 @@ export default (state, action) => {
         filtered: null,
       };
     case SET_FILTER:
-      const exp = new RegExp(`${state.filterText}`, 'gi');
+      const coins = Object.keys(state.coinList);
+      const coinList = state.coinList;
       return {
         ...state,
-        filtered: state.coinList.filter((coin) => {
-          const key = coin.keys();
+        filtered: coins.filter((key) => {
           return (
-            coinList[key].CoinName.toString().match(exp) ||
-            coinList[key].Symbol.toString().match(exp) ||
-            coinList[key].FullName.toStrng().match(exp) ||
-            coinList[key].Name.toString().match(exp)
+            state.coinList[key].CoinName.toString()
+              .toLowerCase()
+              .includes(state.filterText.toString.toLowerCase) ||
+            state.coinList[key].Symbol.toString()
+              .toLowerCase()
+              .includes(state.filterText.toString.toLowerCase) ||
+            state.coinList[key].FullName.toString().includes(
+              state.filterText.toString.toLowerCase
+            ) ||
+            state.coinList[key].Name.toString().includes(
+              state.filterText.toString.toLowerCase
+            )
           );
         }),
       };

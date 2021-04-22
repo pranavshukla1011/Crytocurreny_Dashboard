@@ -6,8 +6,7 @@ import React, {
   useRef,
 } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Spinner from '../layout/spinner';
 import Coins from '../Coins/Coins';
 import FavouriteCoins from '../Coins/FavouriteCoins';
@@ -163,6 +162,23 @@ const Settings = ({ location }) => {
       </Fragment>
     );
   } else {
+    const coins = Object.keys(coinList);
+    console.log(
+      coins
+        .slice(0, 12)
+        .filter(
+          (key) =>
+            coinList[key].CoinName.toString()
+              .toLowerCase()
+              .includes('bitcoindark') ||
+            coinList[key].Symbol.toString()
+              .toLowerCase()
+              .includes('bitcoindark') ||
+            coinList[key].FullName.toString().includes('bitcoindark') ||
+            coinList[key].Name.toString().includes('bitcoindark')
+        )
+    );
+
     return (
       <Fragment>
         {favourites !== null ? (

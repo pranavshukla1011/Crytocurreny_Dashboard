@@ -47,13 +47,13 @@ const Coins = () => {
 
   //Infinite Scroll
 
-  let coins;
+  let coins, filteredCoins;
 
-  if (filtered !== null) {
-    coins = Object.keys(filtered);
-  } else {
-    coins = Object.keys(coinList);
+  if (filtered.length !== 0) {
+    filteredCoins = filtered;
   }
+
+  coins = Object.keys(coinList);
 
   let coinIndex = 91;
 
