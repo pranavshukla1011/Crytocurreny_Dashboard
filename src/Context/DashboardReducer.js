@@ -1,3 +1,4 @@
+import { coinList } from 'cryptocompare';
 import {
   SET_PAGE,
   SET_FIRST_VISIT,
@@ -8,7 +9,6 @@ import {
   SET_FILTER_TEXT,
   SET_CURRENT,
   DELETE_CURRENT,
-  DELETE_FAVOURITES_ITEM,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -39,10 +39,19 @@ export default (state, action) => {
         filtered: null,
       };
     case SET_FILTER:
+      const exp = new RegExp(`${state.filterText}`, 'gi');
       return {
         ...state,
+        filtered: state.coinList.filter((coin) => {
+          const key = coin.keys();
+          return (
+            coinList[key].CoinName.toString().match(exp) ||
+            coinList[key].Symbol.toString().match(exp) ||
+            coinList[key].FullName.toStrng().match(exp) ||
+            coinList[key].Name.toString().match(exp)
+          );
+        }),
       };
-
     case SET_FILTER_TEXT:
       return {
         ...state,

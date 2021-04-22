@@ -7,6 +7,30 @@ const CoinGrid = styled.div`
   grid-template-columns: repeat(6, 1fr);
   text-align: center;
 `;
+const MainDiv = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  animation: animate4 5s infinite alternate;
+
+  align-items: center;
+  justify-content: center;
+  color: var(--font-color-3);
+  margin: 20px 300px 30px 300px;
+  padding: 10px 0;
+  & h1 {
+    font-size: var(--l-length-m);
+  }
+
+  & h2 {
+    font-size: var(--l-length-s);
+  }
+
+  & h3 {
+    margin: var(--m-length-m) 0 0 0;
+    font-size: var(--m-length-l);
+  }
+`;
 
 const Coins = () => {
   const dashboardContext = useContext(DashboardContext);
@@ -30,8 +54,6 @@ const Coins = () => {
   } else {
     coins = Object.keys(coinList);
   }
-
-  console.log(coins);
 
   let coinIndex = 91;
 
@@ -89,8 +111,6 @@ const Coins = () => {
     container.appendChild(coinCard);
   }
 
-  console.log(coinList[coins[0]]);
-
   //Infinite Scroll Over
 
   const onClickAdd = (e) => {
@@ -114,8 +134,14 @@ const Coins = () => {
     }
   };
 
+  const temp = Object.keys(coinList);
+  console.log(temp.slice(0, 10).map((coin) => coinList[coin]));
+
   return (
     <Fragment>
+      <MainDiv>
+        <h1>All Coins</h1>
+      </MainDiv>
       <CoinGrid id='coinGridContainer' className='card-dark'>
         {coins.slice(0, 90).map((coinKey) => (
           <div className='coin-light coin-item' key={coinList[coinKey].Id}>

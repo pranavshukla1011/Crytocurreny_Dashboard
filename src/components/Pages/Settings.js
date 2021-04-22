@@ -140,8 +140,8 @@ const Settings = ({ location }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (text.current.value !== '') {
-      filterCoins(text.current.value);
       setFilterText(text.current.value);
+      filterCoins();
     } else {
       clearFilter();
     }

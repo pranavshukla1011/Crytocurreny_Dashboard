@@ -106,6 +106,17 @@ body {
     border: 1px solid var(--main-color-pink);
   }
 }
+
+@keyframes animate4 {
+  from {
+    border-top: 1px solid var(--main-color-purple);
+    border-bottom: 1px solid var(--main-color-purple);
+  }
+  to {
+    border-top: 1px solid var(--main-color-pink);
+    border-bottom: 1px solid var(--main-color-pink);
+  }
+}
 /* Forms */
 input {
   margin: 1.2rem 0;
