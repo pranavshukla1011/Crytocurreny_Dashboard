@@ -20,11 +20,9 @@ const MainDiv = styled.div`
   & h1 {
     font-size: var(--l-length-m);
   }
-
   & h2 {
     font-size: var(--l-length-s);
   }
-
   & h3 {
     font-size: var(--m-length-l);
   }
