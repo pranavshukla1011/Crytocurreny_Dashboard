@@ -35,23 +35,13 @@ const MainDiv = styled.div`
 const Coins = () => {
   const dashboardContext = useContext(DashboardContext);
 
-  const {
-    coinList,
-    filtered,
-    current,
-    setCurrent,
-    deleteCurrent,
-  } = dashboardContext;
+  const { coinList, current, setCurrent, deleteCurrent } = dashboardContext;
 
   console.log('CoinGrid Started');
 
   //Infinite Scroll
 
-  let coins, filteredCoins;
-
-  if (filtered.length !== 0) {
-    filteredCoins = filtered;
-  }
+  let coins;
 
   coins = Object.keys(coinList);
 
@@ -133,9 +123,6 @@ const Coins = () => {
       deleteCurrent(e.target.attributes.coinKey.nodeValue);
     }
   };
-
-  const temp = Object.keys(coinList);
-  console.log(temp.slice(0, 10).map((coin) => coinList[coin]));
 
   return (
     <Fragment>

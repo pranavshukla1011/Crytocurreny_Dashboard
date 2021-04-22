@@ -1,15 +1,10 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  Fragment,
-  useRef,
-} from 'react';
+import React, { useContext, useEffect, Fragment, useRef } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
 import styled from 'styled-components';
 import Spinner from '../layout/spinner';
 import Coins from '../Coins/Coins';
 import FavouriteCoins from '../Coins/FavouriteCoins';
+import FilteredCoins from '../Coins/FilteredCoins';
 const Settings = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
 
@@ -23,7 +18,7 @@ const Settings = ({ location }) => {
     coinList,
     filtered,
     filterCoins,
-    clearFilter,
+    clearFilterText,
     setFilterText,
     current,
   } = dashboardContext;
@@ -33,7 +28,7 @@ const Settings = ({ location }) => {
     // eslint-disable-next-line
     if (filtered === null) {
       text = '';
-      setFilterText('');
+      clearFilterText();
     }
     setCoinList();
     localStorage.setItem('firstVisit', JSON.stringify(false));
@@ -63,16 +58,19 @@ const Settings = ({ location }) => {
     display: flex;
     flex-direction: column;
     animation: animate3 5s infinite alternate;
+    padding-bottom: 40px;
     align-items: center;
     justify-content: center;
     color: var(--font-color-3);
     margin: 20px 10px;
     & h1 {
       font-size: var(--l-length-m);
+      margin: 5px 0;
     }
 
     & h2 {
       font-size: var(--l-length-s);
+      margin: 5px 0;
     }
 
     & h3 {
@@ -85,7 +83,7 @@ const Settings = ({ location }) => {
     display: grid;
     align-items: center;
     justify-content: center;
-    height: 60vh;
+    height: 40vh;
   `;
 
   const StyledInputSubmit = styled.input`
@@ -140,9 +138,24 @@ const Settings = ({ location }) => {
     e.preventDefault();
     if (text.current.value !== '') {
       setFilterText(text.current.value);
-      filterCoins();
+      let coins = Object.keys(coinList);
+
+      coins = coins.filter(
+        (key) =>
+          coinList[key].CoinName.toString()
+            .toLowerCase()
+            .includes(text.current.value) ||
+          coinList[key].Symbol.toString()
+            .toLowerCase()
+            .includes(text.current.value) ||
+          coinList[key].FullName.toString().includes(text.current.value) ||
+          coinList[key].Name.toString().includes(text.current.value)
+      );
+
+      filterCoins(coins);
     } else {
-      clearFilter();
+      clearFilterText();
+      filterCoins(null);
     }
   };
 
@@ -156,29 +169,14 @@ const Settings = ({ location }) => {
             <h3>You have no favourites...</h3>
           </div>
         )}
+
         <SpinnerDiv>
+          <h1>Fetching Coins....please wait.</h1>
           <Spinner></Spinner>
         </SpinnerDiv>
       </Fragment>
     );
   } else {
-    const coins = Object.keys(coinList);
-    console.log(
-      coins
-        .slice(0, 12)
-        .filter(
-          (key) =>
-            coinList[key].CoinName.toString()
-              .toLowerCase()
-              .includes('bitcoindark') ||
-            coinList[key].Symbol.toString()
-              .toLowerCase()
-              .includes('bitcoindark') ||
-            coinList[key].FullName.toString().includes('bitcoindark') ||
-            coinList[key].Name.toString().includes('bitcoindark')
-        )
-    );
-
     return (
       <Fragment>
         {favourites !== null ? (
@@ -188,6 +186,18 @@ const Settings = ({ location }) => {
             <h3>You have no favourites...</h3>
           </div>
         )}
+
+        <Filter action='' onSubmit={onSubmit}>
+          <input
+            ref={text}
+            type='text'
+            name='text'
+            placeholder='Filter Coins...'
+            id='filterCoins'
+          />
+          <div></div>
+          <StyledInputSubmit type='submit' value='Filter' />
+        </Filter>
         <MainDiv className='card-dark'>
           {firstVisit ? (
             <h3>Choose coin(s) from the menu below and lets get started....</h3>
@@ -203,17 +213,11 @@ const Settings = ({ location }) => {
           </StyledLink>
         </MainDiv>
 
-        <Filter action='' onSubmit={onSubmit}>
-          <input
-            ref={text}
-            type='text'
-            name='text'
-            placeholder='Filter Coins...'
-            id='filterCoins'
-          />
-          <div></div>
-          <StyledInputSubmit type='submit' value='Filter' />
-        </Filter>
+        {filtered !== null && filtered.length !== 0 ? (
+          <FilteredCoins></FilteredCoins>
+        ) : (
+          <Fragment />
+        )}
         <Coins />
       </Fragment>
     );

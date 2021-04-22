@@ -11,9 +11,8 @@ import {
   SET_FILTER_TEXT,
   SET_CURRENT,
   DELETE_CURRENT,
-  FILTER_COINS,
 } from '../Context/types';
-import cc, { coinList } from 'cryptocompare';
+import cc from 'cryptocompare';
 cc.setApiKey(
   '724862db550136603183e13b1c037c5261864518c32be4522aa428e895ddd035'
 );
@@ -51,11 +50,11 @@ const DashboardState = (props) => {
     dispatch({ type: SET_COIN_LIST, payload: coinData.Data });
   };
 
-  const filterCoins = () => {
-    dispatch({ type: SET_FILTER });
+  const filterCoins = (filteredArray) => {
+    dispatch({ type: SET_FILTER, payload: filteredArray });
   };
 
-  const clearFilter = () => {
+  const clearFilterText = () => {
     dispatch({ type: CLEAR_FILTER });
   };
 
@@ -83,7 +82,7 @@ const DashboardState = (props) => {
         current: state.current,
         setFilterText,
         filterCoins,
-        clearFilter,
+        clearFilterText,
         setPage,
         setFirstVisit,
         setFavourites,

@@ -39,15 +39,7 @@ const StyledLink = styled(Link)`
 
 const Navbar = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
-  const {
-    page,
-    favourites,
-    firstVisit,
-    setPage,
-    setFavourites,
-    setFirstVisit,
-    setCoinList,
-  } = dashboardContext;
+  const { page, setFavourites, setFirstVisit } = dashboardContext;
 
   useEffect(() => {
     setFavourites();

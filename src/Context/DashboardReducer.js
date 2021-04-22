@@ -1,4 +1,3 @@
-import { coinList } from 'cryptocompare';
 import {
   SET_PAGE,
   SET_FIRST_VISIT,
@@ -36,29 +35,12 @@ export default (state, action) => {
     case CLEAR_FILTER:
       return {
         ...state,
-        filtered: null,
+        filterText: '',
       };
     case SET_FILTER:
-      const coins = Object.keys(state.coinList);
-      const coinList = state.coinList;
       return {
         ...state,
-        filtered: coins.filter((key) => {
-          return (
-            state.coinList[key].CoinName.toString()
-              .toLowerCase()
-              .includes(state.filterText.toString.toLowerCase) ||
-            state.coinList[key].Symbol.toString()
-              .toLowerCase()
-              .includes(state.filterText.toString.toLowerCase) ||
-            state.coinList[key].FullName.toString().includes(
-              state.filterText.toString.toLowerCase
-            ) ||
-            state.coinList[key].Name.toString().includes(
-              state.filterText.toString.toLowerCase
-            )
-          );
-        }),
+        filtered: action.payload,
       };
     case SET_FILTER_TEXT:
       return {
