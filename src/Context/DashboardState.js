@@ -54,13 +54,18 @@ const DashboardState = (props) => {
 
   const setPrices = async () => {
     let localData = [];
-    localData.push(
-      JSON.parse(localStorage.getItem('cryptoData')).map((obj) =>
-        Object.keys(obj)
-      )
-    );
-    let coinPrices = await cc.priceFull(localData, ['USD', 'EUR']);
-    dispatch({ type: SET_PRICES, payload: coinPrices });
+
+    if (!Array.isArray(JSON.parse(localStorage.getItem('cryptoData')))) {
+      dispatch({ type: SET_PRICES, payload: null });
+    } else {
+      localData.push(
+        JSON.parse(localStorage.getItem('cryptoData')).map((obj) =>
+          Object.keys(obj)
+        )
+      );
+      let coinPrices = await cc.priceFull(localData, ['USD', 'EUR']);
+      dispatch({ type: SET_PRICES, payload: coinPrices });
+    }
   };
 
   const filterCoins = (filteredArray) => {
