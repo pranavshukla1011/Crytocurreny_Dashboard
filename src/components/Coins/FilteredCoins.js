@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import DashboardContext from '../../Context/DashboardContext';
 const CoinGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   text-align: center;
 `;
 const MainDiv = styled.div`

@@ -108,7 +108,8 @@ const Settings = ({ location }) => {
   const Filter = styled.form`
     display: grid;
     padding: 0 40px;
-    grid-template-columns: 6fr 1fr 2fr;
+    grid-template-columns: 4fr 1fr 1fr;
+    justify-content: space-around;
     margin: 20px 10px;
   `;
 
@@ -138,6 +139,8 @@ const Settings = ({ location }) => {
     e.preventDefault();
     if (text.current.value !== '') {
       setFilterText(text.current.value);
+      const loader = document.querySelector('#loader');
+      loader.style.display = 'block';
       let coins = Object.keys(coinList);
 
       coins = coins.filter(
@@ -151,7 +154,7 @@ const Settings = ({ location }) => {
           coinList[key].FullName.toString().includes(text.current.value) ||
           coinList[key].Name.toString().includes(text.current.value)
       );
-
+      loader.style.display = 'none';
       filterCoins(coins);
     } else {
       clearFilterText();
@@ -214,7 +217,12 @@ const Settings = ({ location }) => {
         </MainDiv>
 
         {filtered !== null && filtered.length !== 0 ? (
-          <FilteredCoins></FilteredCoins>
+          <Fragment>
+            <div id='loader' style={{ display: 'none' }}>
+              <Spinner></Spinner>
+            </div>
+            <FilteredCoins></FilteredCoins>
+          </Fragment>
         ) : (
           <Fragment />
         )}

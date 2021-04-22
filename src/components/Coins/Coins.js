@@ -4,20 +4,18 @@ import DashboardContext from '../../Context/DashboardContext';
 import Spinner from '../layout/spinner';
 const CoinGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   text-align: center;
 `;
 const MainDiv = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-  animation: animate4 5s infinite alternate;
-
+  //   animation: animate3 5s infinite alternate;
   align-items: center;
   justify-content: center;
   color: var(--font-color-3);
-  margin: 20px 300px 30px 300px;
-  padding: 10px 0;
+  margin: 20px 10px;
   & h1 {
     font-size: var(--l-length-m);
   }
@@ -27,7 +25,6 @@ const MainDiv = styled.div`
   }
 
   & h3 {
-    margin: var(--m-length-m) 0 0 0;
     font-size: var(--m-length-l);
   }
 `;
@@ -127,7 +124,15 @@ const Coins = () => {
   return (
     <Fragment>
       <MainDiv>
-        <h1>All Coins</h1>
+        <h1
+          style={{
+            animation: 'animate4 5s infinite alternate',
+            padding: '0 100px',
+            margin: '20px 0',
+          }}
+        >
+          All Coins
+        </h1>
       </MainDiv>
       <CoinGrid id='coinGridContainer' className='card-dark'>
         {coins.slice(0, 90).map((coinKey) => (
