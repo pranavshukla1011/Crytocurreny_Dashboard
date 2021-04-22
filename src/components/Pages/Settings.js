@@ -21,6 +21,7 @@ const Settings = ({ location }) => {
     clearFilterText,
     setFilterText,
     current,
+    setPrices,
   } = dashboardContext;
 
   useEffect(() => {
@@ -129,6 +130,7 @@ const Settings = ({ location }) => {
       );
 
     setFavourites();
+    setPrices();
     localStorage.setItem('firstVisit', JSON.stringify(false));
     setFirstVisit();
   };

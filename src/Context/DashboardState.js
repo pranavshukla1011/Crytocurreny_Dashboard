@@ -11,6 +11,7 @@ import {
   SET_FILTER_TEXT,
   SET_CURRENT,
   DELETE_CURRENT,
+  SET_PRICES,
 } from '../Context/types';
 import cc from 'cryptocompare';
 cc.setApiKey(
@@ -27,6 +28,7 @@ const DashboardState = (props) => {
     filtered: [],
     filterText: null,
     current: [],
+    prices: null,
   };
 
   //props
@@ -48,6 +50,17 @@ const DashboardState = (props) => {
   const setCoinList = async () => {
     let coinData = await cc.coinList();
     dispatch({ type: SET_COIN_LIST, payload: coinData.Data });
+  };
+
+  const setPrices = async () => {
+    let localData = [];
+    localData.push(
+      JSON.parse(localStorage.getItem('cryptoData')).map((obj) =>
+        Object.keys(obj)
+      )
+    );
+    let coinPrices = await cc.priceFull(localData, ['USD', 'EUR']);
+    dispatch({ type: SET_PRICES, payload: coinPrices });
   };
 
   const filterCoins = (filteredArray) => {
@@ -79,6 +92,7 @@ const DashboardState = (props) => {
         coinList: state.coinList,
         filtered: state.filtered,
         filterText: state.filterText,
+        prices: state.prices,
         current: state.current,
         setFilterText,
         filterCoins,
@@ -89,6 +103,7 @@ const DashboardState = (props) => {
         setCoinList,
         setCurrent,
         deleteCurrent,
+        setPrices,
       }}
     >
       {props.children}

@@ -8,6 +8,7 @@ import {
   SET_FILTER_TEXT,
   SET_CURRENT,
   DELETE_CURRENT,
+  SET_PRICES,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -32,6 +33,12 @@ export default (state, action) => {
         ...state,
         coinList: action.payload,
       };
+    case SET_PRICES:
+      return {
+        ...state,
+        prices: action.payload,
+      };
+
     case CLEAR_FILTER:
       return {
         ...state,
@@ -57,8 +64,9 @@ export default (state, action) => {
     case DELETE_CURRENT:
       return {
         ...state,
-        current: state.current.filter((coinKey) => coinKey != action.payload),
+        current: state.current.filter((coinKey) => coinKey !== action.payload),
       };
+
     default:
       return state;
   }

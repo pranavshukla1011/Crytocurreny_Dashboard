@@ -1,6 +1,7 @@
 import React, { useContext, Fragment } from 'react';
 import styled from 'styled-components';
 import DashboardContext from '../../Context/DashboardContext';
+
 const CoinGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -76,7 +77,7 @@ const FavouriteDeleteAllButton = styled.button`
 const FavouriteCoins = () => {
   const dashboardContext = useContext(DashboardContext);
 
-  const { favourites, setFavourites } = dashboardContext;
+  const { favourites, setFavourites, setPrices } = dashboardContext;
 
   console.log('Favourites Grid Started');
 
@@ -93,11 +94,13 @@ const FavouriteCoins = () => {
       localStorage.setItem('cryptoData', JSON.stringify(null));
     }
     setFavourites();
+    setPrices();
   };
 
   const onClickDeleteAll = () => {
     localStorage.setItem('cryptoData', JSON.stringify(null));
     setFavourites();
+    setPrices();
   };
 
   const favCoins = {};
