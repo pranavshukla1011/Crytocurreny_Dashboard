@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
 import Spinner from '../layout/spinner';
+import CoinPriceChart from '../Chart/CoinPriceChart';
 
 const Dashboard = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
@@ -16,7 +17,14 @@ const Dashboard = ({ location }) => {
   if (dashboardContext.loading === true) {
     return <Spinner />;
   } else {
-    return <div>Dashboard</div>;
+    return (
+      <Fragment>
+        <div>Dashboard</div>;
+        <div>
+          <CoinPriceChart />
+        </div>
+      </Fragment>
+    );
   }
 };
 
