@@ -9,6 +9,7 @@ import {
   SET_CURRENT,
   DELETE_CURRENT,
   SET_PRICES,
+  SET_CURRENT_FROM_LOCAL_STORAGE,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -65,6 +66,17 @@ export default (state, action) => {
       return {
         ...state,
         current: state.current.filter((coinKey) => coinKey !== action.payload),
+      };
+
+    case SET_CURRENT_FROM_LOCAL_STORAGE:
+      return {
+        ...state,
+        current:
+          JSON.parse(localStorage.getItem('cryptoData')) === null
+            ? []
+            : JSON.parse(localStorage.getItem('cryptoData')).map((coinData) =>
+                Object.keys(coinData).toString()
+              ),
       };
 
     default:

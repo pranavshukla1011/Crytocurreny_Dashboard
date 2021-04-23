@@ -39,10 +39,17 @@ const StyledLink = styled(Link)`
 
 const Navbar = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
-  const { page, setFavourites, setFirstVisit, setPrices } = dashboardContext;
+  const {
+    page,
+    setFavourites,
+    setFirstVisit,
+    setPrices,
+    setCurrentFromLocalStorage,
+  } = dashboardContext;
 
   useEffect(() => {
     setFavourites();
+    setCurrentFromLocalStorage();
     setPrices();
     setFirstVisit();
     // eslint-disable-next-line

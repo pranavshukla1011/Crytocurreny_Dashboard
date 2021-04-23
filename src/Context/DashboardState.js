@@ -12,6 +12,7 @@ import {
   SET_CURRENT,
   DELETE_CURRENT,
   SET_PRICES,
+  SET_CURRENT_FROM_LOCAL_STORAGE,
 } from '../Context/types';
 import cc from 'cryptocompare';
 cc.setApiKey(
@@ -63,7 +64,7 @@ const DashboardState = (props) => {
           Object.keys(obj)
         )
       );
-      let coinPrices = await cc.priceFull(localData, ['USD', 'EUR']);
+      let coinPrices = await cc.priceFull(localData, ['USD']);
       dispatch({ type: SET_PRICES, payload: coinPrices });
     }
   };
@@ -88,6 +89,10 @@ const DashboardState = (props) => {
     dispatch({ type: DELETE_CURRENT, payload: value });
   };
 
+  const setCurrentFromLocalStorage = () => {
+    dispatch({ type: SET_CURRENT_FROM_LOCAL_STORAGE });
+  };
+
   return (
     <DashboardContext.Provider
       value={{
@@ -109,6 +114,7 @@ const DashboardState = (props) => {
         setCurrent,
         deleteCurrent,
         setPrices,
+        setCurrentFromLocalStorage,
       }}
     >
       {props.children}

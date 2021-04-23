@@ -117,6 +117,18 @@ body {
     border-bottom: 1px solid var(--main-color-pink);
   }
 }
+
+@keyframes animate5 {
+  from {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+}
+
 /* Forms */
 input {
   margin: 1.2rem 0;
@@ -205,4 +217,7 @@ button {
   background-color: var(--font-color-2);
   animation: animate3 5s infinite alternate;
   transform: scale(1.1, 1.1);
+}
+
+.coin-disble {
 }
