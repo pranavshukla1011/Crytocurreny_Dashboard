@@ -101,8 +101,12 @@ const Dashboard = ({ location }) => {
   };
 
   function roundOff(value) {
-    let val = value.toString().slice(0, 8);
-    return val;
+    if (typeof value === 'number') {
+      let val = value.toString().slice(0, 8);
+      return val;
+    } else {
+      return 0;
+    }
   }
 
   const DisplayCoinDeatils = () => {

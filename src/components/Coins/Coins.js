@@ -119,6 +119,12 @@ const Coins = () => {
       </div>
       `;
 
+    coinCard.childNodes[5].childNodes[1].onClick = onClickAdd;
+    coinCard.childNodes[5].childNodes[3].onClick = onClickAdd;
+    coinCard.childNodes[5].childNodes[1].coinKey = { coinKey };
+    coinCard.childNodes[5].childNodes[1].coinKey = { coinKey };
+    console.log(coinCard.childNodes[5].childNodes[1]);
+
     if (coinCard !== null) {
       container.appendChild(coinCard);
     }
