@@ -71,6 +71,27 @@ const Coins = () => {
     }
   }
 
+  function onClickAdd(e) {
+    e.target.parentElement.parentElement.style.boxShadow =
+      '0px 0px 3px 3px var(--font-color-2)';
+    if (
+      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) ===
+      undefined
+    ) {
+      setCurrent(e.target.attributes.coinKey.nodeValue);
+    }
+  }
+
+  function onClickDelete(e) {
+    e.target.parentElement.parentElement.style.boxShadow = 'none';
+    if (
+      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) !==
+      undefined
+    ) {
+      deleteCurrent(e.target.attributes.coinKey.nodeValue);
+    }
+  }
+
   function createCoinCard(coinKey) {
     const container = document.querySelector('#coinGridContainer');
 
@@ -92,8 +113,8 @@ const Coins = () => {
           alt='<coin image>'
         />
         <div class='coin-grid'>
-          <button class='coin-button'>Add</button>
-          <button class='coin-button'>Delete</button>
+          <button class='coin-button'  >select</button>
+          <button class='coin-button' >delete</button>
         </div>
       </div>
       `;
@@ -104,27 +125,6 @@ const Coins = () => {
   }
 
   //Infinite Scroll Over
-
-  const onClickAdd = (e) => {
-    e.target.parentElement.parentElement.style.boxShadow =
-      '0px 0px 3px 3px var(--font-color-2)';
-    if (
-      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) ===
-      undefined
-    ) {
-      setCurrent(e.target.attributes.coinKey.nodeValue);
-    }
-  };
-
-  const onClickDelete = (e) => {
-    e.target.parentElement.parentElement.style.boxShadow = 'none';
-    if (
-      current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) !==
-      undefined
-    ) {
-      deleteCurrent(e.target.attributes.coinKey.nodeValue);
-    }
-  };
 
   return (
     <Fragment>

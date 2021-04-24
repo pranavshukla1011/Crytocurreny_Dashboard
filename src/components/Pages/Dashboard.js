@@ -3,7 +3,7 @@ import DashboardContext from '../../Context/DashboardContext';
 import Spinner from '../layout/spinner';
 import CoinPriceChart from '../Chart/CoinPriceChart';
 import styled, { css } from 'styled-components';
-
+import MainDisplay from '../Dashboard/MainDisplay';
 const Dashboard = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
   const {
@@ -167,7 +167,7 @@ const Dashboard = ({ location }) => {
             </PriceCoin>
           ))}
         </CoinGrid>
-        <CoinPriceChart></CoinPriceChart>
+        <MainDisplay></MainDisplay>
       </Fragment>
     );
   };
