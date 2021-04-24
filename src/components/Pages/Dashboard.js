@@ -8,6 +8,7 @@ const Dashboard = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
   const {
     firstVisit,
+    spotlight,
     prices,
     setPage,
     setFirstVisit,
@@ -20,63 +21,50 @@ const Dashboard = ({ location }) => {
 
   const CoinGrid = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     justify-conten: center;
     align-items: center;
   `;
 
   const PriceCoin = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 1fr;
     box-shadow: 0px 0px 1px 1px var(--main-color-pink);
     justify-conten: center;
     align-items: center;
-    ${(props) => {
-      return (
-        props.priceHr < 0
-          ? css`
-              & p {
-                color: red;
-                opacity: 0.7;
-              }
-            `
-          : css`
-              & p {
-                color: green;
-              }
-            `,
-        props.priceMn < 0
-          ? css`
-              & p {
-                color: red;
-                opacity: 0.7;
-              }
-            `
-          : css`
-              & p {
-                color: green;
-              }
-            `,
-        props.priceYr < 0
-          ? css`
-              & p {
-                color: red;
-                opacity: 0.7;
-              }
-            `
-          : css`
-              & p {
-                color: green;
-              }
-            `
-      );
-    }}
   `;
 
+  const PriceValue = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    justify-content: space-between;
+    align-items: center;
+    & p {
+      margin: 5px;
+    }
+  `;
+  const PriceValueStyle = styled.p`
+    margin: 5px 0;
+    ${(props) =>
+      props.price <= 0
+        ? css`
+            color: red;
+            opacity: 0.7;
+          `
+        : css`
+            color: green;
+          `}
+  `;
+
+  const PriceCoinImg = styled.img`
+    height: 100px;
+    margin: 10px 0;
+  `;
   useEffect(() => {
     setPage(location.pathname);
     // eslint-disable-next-line
     localStorage.setItem('firstVisit', JSON.stringify(false));
+
     setFavourites();
     setPrices();
     setFirstVisit();
@@ -129,7 +117,56 @@ const Dashboard = ({ location }) => {
 
     return (
       <Fragment>
-        <CoinGrid className='card-dark'></CoinGrid>
+        <div className='card-dark' style={{ textAlign: 'center' }}>
+          {' '}
+          <h1>Your Coins </h1>
+          {Object.keys(favCoins).length === Object.keys(prices).length ? (
+            <Fragment></Fragment>
+          ) : (
+            <div style={{ textAlign: 'center' }} className='card-dark'>
+              <h3>
+                Coin prices for some favourites are unavailable at the moment
+              </h3>
+            </div>
+          )}
+        </div>
+        <CoinGrid className='card-dark'>
+          {Object.keys(prices).map((coinKey) => (
+            <PriceCoin className='coin-light' key={favCoins[coinKey].Id}>
+              <div>
+                <h1>{favCoins[coinKey].CoinName}</h1>
+                <PriceValue>
+                  <p>%24hr</p>
+                  <PriceValueStyle
+                    price={prices[coinKey]['USD'].CHANGEPCT24HOUR}
+                  >
+                    {roundOff(prices[coinKey]['USD'].CHANGEPCT24HOUR)}%
+                  </PriceValueStyle>
+                </PriceValue>
+
+                <PriceValue>
+                  <p>%day</p>
+                  <PriceValueStyle price={prices[coinKey]['USD'].CHANGEPCTDAY}>
+                    {roundOff(prices[coinKey]['USD'].CHANGEPCTDAY)}%
+                  </PriceValueStyle>
+                </PriceValue>
+
+                <PriceValue>
+                  <p>%hr</p>
+                  <PriceValueStyle price={prices[coinKey]['USD'].CHANGEPCTHOUR}>
+                    {roundOff(prices[coinKey]['USD'].CHANGEPCTHOUR)}%
+                  </PriceValueStyle>
+                </PriceValue>
+              </div>
+              <div>
+                <PriceCoinImg
+                  src={`http://cryptocompare.com/${favCoins[coinKey].ImageUrl}`}
+                  alt='<coin image>'
+                />
+              </div>
+            </PriceCoin>
+          ))}
+        </CoinGrid>
         <CoinPriceChart></CoinPriceChart>
       </Fragment>
     );

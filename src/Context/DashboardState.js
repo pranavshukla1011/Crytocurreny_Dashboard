@@ -14,7 +14,7 @@ import {
   SET_PRICES,
   SET_CURRENT_FROM_LOCAL_STORAGE,
 } from '../Context/types';
-import cc from 'cryptocompare';
+import cc, { coinList } from 'cryptocompare';
 cc.setApiKey(
   '724862db550136603183e13b1c037c5261864518c32be4522aa428e895ddd035'
 );
@@ -30,6 +30,7 @@ const DashboardState = (props) => {
     filterText: null,
     current: [],
     prices: null,
+    spotlight: [],
   };
 
   //props
@@ -48,6 +49,17 @@ const DashboardState = (props) => {
     dispatch({ type: SET_FAVOURITES });
   };
 
+  async function coinPriceExists(coinKey) {
+    try {
+      const price = await cc.price(coinKey, ['USD']);
+      console.log(`${coinKey} true`);
+      return new Promise((res) => true);
+    } catch {
+      console.log(`${coinKey} false`);
+      return new Promise((res) => false);
+    }
+  }
+
   const setCoinList = async () => {
     let coinData = await cc.coinList();
     dispatch({ type: SET_COIN_LIST, payload: coinData.Data });
@@ -65,6 +77,7 @@ const DashboardState = (props) => {
         )
       );
       let coinPrices = await cc.priceFull(localData, ['USD']);
+      // coinPrices = coinPrices.filter((price) => Object.keys(price).length);
       dispatch({ type: SET_PRICES, payload: coinPrices });
     }
   };
@@ -104,6 +117,7 @@ const DashboardState = (props) => {
         filterText: state.filterText,
         prices: state.prices,
         current: state.current,
+        spotlight: state.spotlight,
         setFilterText,
         filterCoins,
         clearFilterText,

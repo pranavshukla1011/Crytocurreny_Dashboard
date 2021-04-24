@@ -43,7 +43,6 @@ const Coins = () => {
   //Infinite Scroll
 
   let coins;
-
   coins = Object.keys(coinList);
 
   let coinIndex = 91;
@@ -80,26 +79,28 @@ const Coins = () => {
     coinCard.key = coinList[coinKey].Id;
 
     coinCard.innerHTML = `
-    <div class='coin-grid'>
-      <div>${coinList[coinKey].CoinName}</div>
-        <div style='justify-self: right'>
-          ${coinList[coinKey].Symbol}
+      <div class='coin-grid'>
+        <div>${coinList[coinKey].CoinName}</div>
+          <div style='justify-self: right'>
+            ${coinList[coinKey].Symbol}
+          </div>
+        </div>
+  
+        <img
+          style='height: 70px; margin: 10px 0'
+          src='http://cryptocompare.com/${coinList[coinKey].ImageUrl}'
+          alt='<coin image>'
+        />
+        <div class='coin-grid'>
+          <button class='coin-button'>Add</button>
+          <button class='coin-button'>Delete</button>
         </div>
       </div>
+      `;
 
-      <img
-        style='height: 70px; margin: 10px 0'
-        src='http://cryptocompare.com/${coinList[coinKey].ImageUrl}'
-        alt='<coin image>'
-      />
-      <div class='coin-grid'>
-        <button class='coin-button'>Add</button>
-        <button class='coin-button'>Delete</button>
-      </div>
-    </div>
-    `;
-
-    container.appendChild(coinCard);
+    if (coinCard !== null) {
+      container.appendChild(coinCard);
+    }
   }
 
   //Infinite Scroll Over
@@ -124,10 +125,6 @@ const Coins = () => {
       deleteCurrent(e.target.attributes.coinKey.nodeValue);
     }
   };
-  async function coinPriceExists(coinKey) {
-    const price = await cc.price(coinKey, ['USD']);
-    return price;
-  }
 
   return (
     <Fragment>
@@ -144,53 +141,52 @@ const Coins = () => {
       </MainDiv>
       <CoinGrid id='coinGridContainer' className='card-dark'>
         {coins.slice(0, 90).map((coinKey) => {
-          if (coinPriceExists !== null) {
-            return (
-              <Fragment>
-                <div
-                  className='coin-light coin-item'
-                  key={coinList[coinKey].Id}
-                  style={{
-                    boxShadow: current.find(
-                      (coinCurrent) => coinCurrent === coinKey
-                    )
-                      ? '0px 0px 3px 3px var(--font-color-2)'
-                      : 'none',
-                  }}
-                >
-                  <div className='coin-grid'>
-                    <div>{coinList[coinKey].CoinName}</div>
-                    <div style={{ justifySelf: 'right' }}>
-                      {coinList[coinKey].Symbol}
-                    </div>
-                  </div>
-
-                  <img
-                    style={{ height: '70px', margin: '10px 0' }}
-                    src={`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
-                    alt='<coin image>'
-                  />
-
-                  <div className='coin-grid'>
-                    <button
-                      className='coin-button'
-                      coinkey={coinKey}
-                      onClick={onClickAdd}
-                    >
-                      Select
-                    </button>
-                    <button
-                      className='coin-button'
-                      coinkey={coinKey}
-                      onClick={onClickDelete}
-                    >
-                      Remove
-                    </button>
+          // coinItem
+          return (
+            <Fragment>
+              <div
+                className='coin-light coin-item'
+                key={coinList[coinKey].Id}
+                style={{
+                  boxShadow: current.find(
+                    (coinCurrent) => coinCurrent === coinKey
+                  )
+                    ? '0px 0px 3px 3px var(--font-color-2)'
+                    : 'none',
+                }}
+              >
+                <div className='coin-grid'>
+                  <div>{coinList[coinKey].CoinName}</div>
+                  <div style={{ justifySelf: 'right' }}>
+                    {coinList[coinKey].Symbol}
                   </div>
                 </div>
-              </Fragment>
-            );
-          }
+
+                <img
+                  style={{ height: '70px', margin: '10px 0' }}
+                  src={`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
+                  alt='<coin image>'
+                />
+
+                <div className='coin-grid'>
+                  <button
+                    className='coin-button'
+                    coinkey={coinKey}
+                    onClick={onClickAdd}
+                  >
+                    Select
+                  </button>
+                  <button
+                    className='coin-button'
+                    coinkey={coinKey}
+                    onClick={onClickDelete}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </Fragment>
+          );
         })}
       </CoinGrid>
       {coinIndex >= coins.length ? {} : <Spinner></Spinner>}
