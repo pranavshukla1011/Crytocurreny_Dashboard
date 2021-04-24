@@ -72,6 +72,7 @@ const Coins = () => {
   }
 
   function onClickAdd(e) {
+    console.log(e);
     e.target.parentElement.parentElement.style.boxShadow =
       '0px 0px 3px 3px var(--font-color-2)';
     if (
@@ -83,6 +84,7 @@ const Coins = () => {
   }
 
   function onClickDelete(e) {
+    console.log(e);
     e.target.parentElement.parentElement.style.boxShadow = 'none';
     if (
       current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) !==
@@ -112,18 +114,30 @@ const Coins = () => {
           src='http://cryptocompare.com/${coinList[coinKey].ImageUrl}'
           alt='<coin image>'
         />
-        <div class='coin-grid'>
-          <button class='coin-button'  >select</button>
-          <button class='coin-button' >delete</button>
-        </div>
       </div>
       `;
 
-    coinCard.childNodes[5].childNodes[1].onClick = onClickAdd;
-    coinCard.childNodes[5].childNodes[3].onClick = onClickAdd;
-    coinCard.childNodes[5].childNodes[1].coinKey = { coinKey };
-    coinCard.childNodes[5].childNodes[1].coinKey = { coinKey };
-    console.log(coinCard.childNodes[5].childNodes[1]);
+    const coinButtonGrid = document.createElement('div');
+    coinButtonGrid.className = 'coin-grid';
+
+    const button1 = document.createElement('button');
+    button1.className = 'coin-button';
+    button1.innerHTML = 'select';
+    button1.onClick = (e) => {
+      onClickAdd(e);
+    };
+    button1.coinKey = coinKey;
+
+    const button2 = document.createElement('button');
+    button2.className = 'coin-button';
+    button2.innerHTML = 'delete';
+    button2.onClick = onClickDelete;
+    button2.coinKey = coinKey;
+
+    coinButtonGrid.appendChild(button1);
+    coinButtonGrid.appendChild(button2);
+
+    coinCard.appendChild(coinButtonGrid);
 
     if (coinCard !== null) {
       container.appendChild(coinCard);
