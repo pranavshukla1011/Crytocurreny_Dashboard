@@ -91,12 +91,14 @@ const FavouriteCoins = () => {
     } else {
       localStorage.setItem('cryptoData', JSON.stringify(null));
     }
+    localStorage.setItem('dashboardCurrent', JSON.stringify(null));
     setFavourites();
     setPrices();
   };
 
   const onClickDeleteAll = () => {
     localStorage.setItem('cryptoData', JSON.stringify(null));
+    localStorage.setItem('dashboardCurrent', JSON.stringify(null));
     setFavourites();
     setPrices();
   };

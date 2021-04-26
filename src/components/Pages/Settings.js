@@ -5,6 +5,84 @@ import Spinner from '../layout/spinner';
 import Coins from '../Coins/Coins';
 import FavouriteCoins from '../Coins/FavouriteCoins';
 import FilteredCoins from '../Coins/FilteredCoins';
+const StyledLink = styled.div`
+  text-decoration: none;
+  color: var(--font-color-3);
+  animation: animate3 5s infinite alternate;
+  border-radius: var(--m-length-m);
+  padding: 10px;
+  font-size: var(--m-length-m);
+  // text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
+  transition-property: transform, color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  &:hover {
+    transform: scale(1.1, 1.1);
+    color: var(--font-color-2);
+  }
+  cursor: pointer;
+`;
+
+const MainDiv = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  animation: animate3 5s infinite alternate;
+  padding-bottom: 40px;
+  align-items: center;
+  justify-content: center;
+  color: var(--font-color-3);
+  margin: 20px 10px;
+  & h1 {
+    font-size: var(--l-length-m);
+    margin: 5px 0;
+  }
+
+  & h2 {
+    font-size: var(--l-length-s);
+    margin: 5px 0;
+  }
+
+  & h3 {
+    margin: var(--m-length-m) 0 0 0;
+    font-size: var(--m-length-l);
+  }
+`;
+
+const SpinnerDiv = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+`;
+
+const StyledInputSubmit = styled.input`
+  text-decoration: none;
+  color: var(--font-color-3);
+  animation: animate3 5s infinite alternate;
+  border-radius: var(--m-length-m);
+  padding: 10px;
+  font-size: var(--m-length-l);
+  // text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
+  transition-property: transform, color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  &:hover {
+    transform: scale(1.1, 1.1);
+    color: var(--font-color-2);
+  }
+  background-color: inherit;
+  cursor: pointer;
+`;
+
+const Filter = styled.form`
+  display: grid;
+  padding: 0 40px;
+  grid-template-columns: 4fr 1fr 1fr;
+  justify-content: space-around;
+  margin: 20px 10px;
+`;
+
 const Settings = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
 
@@ -33,86 +111,9 @@ const Settings = ({ location }) => {
     }
     setCoinList();
     localStorage.setItem('firstVisit', JSON.stringify(false));
+
     setFirstVisit();
   }, []);
-
-  const StyledLink = styled.div`
-    text-decoration: none;
-    color: var(--font-color-3);
-    animation: animate3 5s infinite alternate;
-    border-radius: var(--m-length-m);
-    padding: 10px;
-    font-size: var(--m-length-m);
-    // text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
-    transition-property: transform, color;
-    transition-duration: 150ms;
-    transition-timing-function: ease-in-out;
-    &:hover {
-      transform: scale(1.1, 1.1);
-      color: var(--font-color-2);
-    }
-    cursor: pointer;
-  `;
-
-  const MainDiv = styled.div`
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    animation: animate3 5s infinite alternate;
-    padding-bottom: 40px;
-    align-items: center;
-    justify-content: center;
-    color: var(--font-color-3);
-    margin: 20px 10px;
-    & h1 {
-      font-size: var(--l-length-m);
-      margin: 5px 0;
-    }
-
-    & h2 {
-      font-size: var(--l-length-s);
-      margin: 5px 0;
-    }
-
-    & h3 {
-      margin: var(--m-length-m) 0 0 0;
-      font-size: var(--m-length-l);
-    }
-  `;
-
-  const SpinnerDiv = styled.div`
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    height: 40vh;
-  `;
-
-  const StyledInputSubmit = styled.input`
-    text-decoration: none;
-    color: var(--font-color-3);
-    animation: animate3 5s infinite alternate;
-    border-radius: var(--m-length-m);
-    padding: 10px;
-    font-size: var(--m-length-l);
-    // text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
-    transition-property: transform, color;
-    transition-duration: 150ms;
-    transition-timing-function: ease-in-out;
-    &:hover {
-      transform: scale(1.1, 1.1);
-      color: var(--font-color-2);
-    }
-    background-color: inherit;
-    cursor: pointer;
-  `;
-
-  const Filter = styled.form`
-    display: grid;
-    padding: 0 40px;
-    grid-template-columns: 4fr 1fr 1fr;
-    justify-content: space-around;
-    margin: 20px 10px;
-  `;
 
   const setValueInLocalStorage = (value) => {
     localStorage.setItem('cryptoData', JSON.stringify(value));
@@ -132,6 +133,7 @@ const Settings = ({ location }) => {
     setFavourites();
     setPrices();
     localStorage.setItem('firstVisit', JSON.stringify(false));
+    localStorage.setItem('dashboardCurrent', JSON.stringify(null));
     setFirstVisit();
   };
 
