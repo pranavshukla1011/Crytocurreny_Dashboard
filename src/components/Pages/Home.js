@@ -4,6 +4,48 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Spinner from '../layout/spinner';
 
+const MainDiv = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  // border: 2px solid white;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: var(--font-color-3);
+
+  & h1 {
+    font-size: var(--l-length-m);
+  }
+
+  & h2 {
+    font-size: var(--l-length-s);
+  }
+
+  & h3 {
+    margin: var(--m-length-m) 0 0 0;
+    font-size: var(--m-length-m);
+  }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: var(--font-color-3);
+  border: 2px solid var(--main-color-purple);
+  border-radius: var(--m-length-m);
+  padding: 10px;
+  font-size: var(--m-length-l);
+  text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
+  transition-property: transform, text-shadow, color;
+  transition-duration: 150ms;
+  transition-iming-function: ease-in-out;
+  &:hover {
+    text-shadow: none;
+    transform: scale(1.1, 1.1);
+    color: var(--font-color-2);
+  }
+`;
+
 const Home = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
 
@@ -14,48 +56,6 @@ const Home = ({ location }) => {
     // eslint-disable-next-line
     setFirstVisit();
   }, [firstVisit]);
-
-  const MainDiv = styled.div`
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    // border: 2px solid white;
-    align-items: center;
-    justify-content: center;
-    height: 60vh;
-    color: var(--font-color-3);
-
-    & h1 {
-      font-size: var(--l-length-m);
-    }
-
-    & h2 {
-      font-size: var(--l-length-s);
-    }
-
-    & h3 {
-      margin: var(--m-length-m) 0 0 0;
-      font-size: var(--m-length-m);
-    }
-  `;
-
-  const StyledLink = styled(Link)`
-    text-decoration: none;
-    color: var(--font-color-3);
-    border: 2px solid var(--main-color-purple);
-    border-radius: var(--m-length-m);
-    padding: 10px;
-    font-size: var(--m-length-l);
-    text-shadow: 0px 0px var(--s-length-l) var(--main-color-pink);
-    transition-property: transform, text-shadow, color;
-    transition-duration: 150ms;
-    transition-iming-function: ease-in-out;
-    &:hover {
-      text-shadow: none;
-      transform: scale(1.1, 1.1);
-      color: var(--font-color-2);
-    }
-  `;
 
   if (dashboardContext.loading === true) {
     return <Spinner />;

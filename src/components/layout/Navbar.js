@@ -45,13 +45,17 @@ const Navbar = ({ location }) => {
     setFirstVisit,
     setPrices,
     setCurrentFromLocalStorage,
+    setDashboardCurrentFromLocalStorage,
+    setDashboardFavourites,
   } = dashboardContext;
 
   useEffect(() => {
-    setFavourites();
     setCurrentFromLocalStorage();
     setPrices();
     setFirstVisit();
+    setFavourites();
+    setDashboardCurrentFromLocalStorage();
+    setDashboardFavourites();
     // eslint-disable-next-line
   }, [page]);
 

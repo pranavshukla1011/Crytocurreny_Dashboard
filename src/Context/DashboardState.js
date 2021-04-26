@@ -13,8 +13,15 @@ import {
   DELETE_CURRENT,
   SET_PRICES,
   SET_CURRENT_FROM_LOCAL_STORAGE,
+  SET_DASHBOARD_CURRENT,
+  DELETE_DASHBOARD_CURRENT,
+  SET_DASHBOARD_CURRENT_FROM_LOCAL_STORAGE,
+  DELETE_DASHBOARD_CURRENT_FROM_LOCAL_STORAGE,
+  SET_DASHBOARD_FAVOURITES,
+  SET_ALERT,
+  REMOVE_ALERT,
 } from '../Context/types';
-import cc, { coinList } from 'cryptocompare';
+import cc from 'cryptocompare';
 cc.setApiKey(
   '724862db550136603183e13b1c037c5261864518c32be4522aa428e895ddd035'
 );
@@ -31,6 +38,9 @@ const DashboardState = (props) => {
     current: [],
     prices: null,
     spotlight: [],
+    dashboardCurrent: [],
+    dashboardFavourites: null,
+    alert: null,
   };
 
   //props
@@ -48,17 +58,6 @@ const DashboardState = (props) => {
   const setFavourites = () => {
     dispatch({ type: SET_FAVOURITES });
   };
-
-  async function coinPriceExists(coinKey) {
-    try {
-      const price = await cc.price(coinKey, ['USD']);
-      console.log(`${coinKey} true`);
-      return new Promise((res) => true);
-    } catch {
-      console.log(`${coinKey} false`);
-      return new Promise((res) => false);
-    }
-  }
 
   const setCoinList = async () => {
     let coinData = await cc.coinList();
@@ -106,6 +105,33 @@ const DashboardState = (props) => {
     dispatch({ type: SET_CURRENT_FROM_LOCAL_STORAGE });
   };
 
+  const setDashboardCurrent = (value) => {
+    dispatch({ type: SET_DASHBOARD_CURRENT, payload: value });
+  };
+
+  const deleteDashboardCurrent = (value) => {
+    dispatch({ type: DELETE_DASHBOARD_CURRENT, payload: value });
+  };
+
+  const setDashboardCurrentFromLocalStorage = () => {
+    dispatch({ type: SET_DASHBOARD_CURRENT_FROM_LOCAL_STORAGE });
+  };
+
+  const setDashboardFavourites = () => {
+    dispatch({ type: SET_DASHBOARD_FAVOURITES });
+  };
+
+  const setAlert = (value) => {
+    dispatch({ type: SET_ALERT, payload: value });
+    setTimeout(
+      () =>
+        dispatch({
+          type: REMOVE_ALERT,
+        }),
+      3000
+    );
+  };
+
   return (
     <DashboardContext.Provider
       value={{
@@ -118,6 +144,9 @@ const DashboardState = (props) => {
         prices: state.prices,
         current: state.current,
         spotlight: state.spotlight,
+        dashboardCurrent: state.dashboardCurrent,
+        dashboardFavourites: state.dashboardFavourites,
+        alert: state.alert,
         setFilterText,
         filterCoins,
         clearFilterText,
@@ -129,6 +158,11 @@ const DashboardState = (props) => {
         deleteCurrent,
         setPrices,
         setCurrentFromLocalStorage,
+        setDashboardCurrent,
+        deleteDashboardCurrent,
+        setDashboardCurrentFromLocalStorage,
+        setDashboardFavourites,
+        setAlert,
       }}
     >
       {props.children}

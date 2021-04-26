@@ -10,6 +10,12 @@ import {
   DELETE_CURRENT,
   SET_PRICES,
   SET_CURRENT_FROM_LOCAL_STORAGE,
+  SET_DASHBOARD_CURRENT,
+  DELETE_DASHBOARD_CURRENT,
+  SET_DASHBOARD_CURRENT_FROM_LOCAL_STORAGE,
+  SET_DASHBOARD_FAVOURITES,
+  SET_ALERT,
+  REMOVE_ALERT,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -79,6 +85,51 @@ export default (state, action) => {
               ),
       };
 
+    case SET_DASHBOARD_CURRENT:
+      return {
+        ...state,
+        dashboardCurrent: [...state.dashboardCurrent, action.payload],
+      };
+
+    case DELETE_DASHBOARD_CURRENT:
+      return {
+        ...state,
+        dashboardCurrent: state.dashboardCurrent.filter(
+          (coinKey) => coinKey !== action.payload
+        ),
+      };
+
+    case SET_DASHBOARD_CURRENT_FROM_LOCAL_STORAGE:
+      return {
+        ...state,
+        dashboardCurrent:
+          JSON.parse(localStorage.getItem('dashboardCurrent')) === null
+            ? []
+            : JSON.parse(localStorage.getItem('dashboardCurrent')).map(
+                (coinKey) => coinKey
+              ),
+      };
+
+    case SET_DASHBOARD_FAVOURITES:
+      return {
+        ...state,
+        dashboardFavourites:
+          JSON.parse(localStorage.getItem('dashboardCurrent')) === null
+            ? null
+            : JSON.parse(localStorage.getItem('dashboardCurrent')),
+      };
+    case SET_ALERT: {
+      return {
+        ...state,
+        alert: action.payload,
+      };
+    }
+    case REMOVE_ALERT: {
+      return {
+        ...state,
+        alert: null,
+      };
+    }
     default:
       return state;
   }

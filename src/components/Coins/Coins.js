@@ -51,28 +51,43 @@ const Coins = () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
 
     if (scrollTop + clientHeight > scrollHeight - 5) {
-      <Spinner />;
-      setTimeout(createCoinGrid(coinIndex), 2000);
+      createCoinGrid(coinIndex);
     }
   });
 
   function createCoinGrid(coinIndex) {
     let i;
+    let canContinue = true;
     if (coinIndex + 90 < coins.length) {
       for (i = coinIndex; i < coinIndex + 91; i++) {
-        createCoinCard(coins[i]);
+        try {
+          createCoinCard(coins[i]);
+        } catch (err) {
+          canContinue = false;
+          break;
+        }
+        if (!canContinue) {
+          break;
+        }
       }
       coinIndex += i;
     } else {
       for (i = coinIndex; i < coins.length; i++) {
-        createCoinCard(coins[i]);
+        try {
+          createCoinCard(coins[i]);
+        } catch (err) {
+          canContinue = false;
+          break;
+        }
+        if (!canContinue) {
+          break;
+        }
       }
       coinIndex = coins.length;
     }
   }
 
   function onClickAdd(e) {
-    console.log(e);
     e.target.parentElement.parentElement.style.boxShadow =
       '0px 0px 3px 3px var(--font-color-2)';
     if (
@@ -84,7 +99,6 @@ const Coins = () => {
   }
 
   function onClickDelete(e) {
-    console.log(e);
     e.target.parentElement.parentElement.style.boxShadow = 'none';
     if (
       current.find((elem) => elem === e.target.attributes.coinKey.nodeValue) !==
@@ -123,15 +137,13 @@ const Coins = () => {
     const button1 = document.createElement('button');
     button1.className = 'coin-button';
     button1.innerHTML = 'select';
-    button1.onClick = (e) => {
-      onClickAdd(e);
-    };
-    button1.coinKey = coinKey;
+    button1.onclick = onClickAdd;
+    button1.setAttribute('coinKey', coinKey);
 
     const button2 = document.createElement('button');
     button2.className = 'coin-button';
     button2.innerHTML = 'delete';
-    button2.onClick = onClickDelete;
+    button2.onclick = onClickDelete;
     button2.coinKey = coinKey;
 
     coinButtonGrid.appendChild(button1);
@@ -139,8 +151,10 @@ const Coins = () => {
 
     coinCard.appendChild(coinButtonGrid);
 
-    if (coinCard !== null) {
+    try {
       container.appendChild(coinCard);
+    } catch (err) {
+      throw err;
     }
   }
 
