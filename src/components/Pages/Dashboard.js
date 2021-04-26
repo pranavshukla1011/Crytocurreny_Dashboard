@@ -233,7 +233,6 @@ const Dashboard = ({ location }) => {
         {favourites.length > 9 ? (
           <Fragment>
             {' '}
-            <Alert></Alert>
             <div
               className='card-dark'
               style={{
@@ -254,6 +253,7 @@ const Dashboard = ({ location }) => {
                 Set main coins
               </StyledInputButton>
             </div>
+            <Alert></Alert>
           </Fragment>
         ) : (
           <Fragment></Fragment>
