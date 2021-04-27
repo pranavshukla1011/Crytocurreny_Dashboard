@@ -105,6 +105,7 @@ const Dashboard = ({ location }) => {
     setDashboardCurrentFromLocalStorage,
     setDashboardFavourites,
     setAlert,
+    getCoinHistory,
   } = dashboardContext;
 
   useEffect(() => {
@@ -198,6 +199,7 @@ const Dashboard = ({ location }) => {
   function onSubmit(e) {
     setValueInLocalStorage(dashboardCurrent);
     setDashboardFavourites();
+    getCoinHistory();
   }
 
   const DisplayCoinDeatils = () => {

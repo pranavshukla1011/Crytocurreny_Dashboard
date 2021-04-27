@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import DashboardContext from '../Context/DashboardContext';
 import DashboardReducer from '../Context/DashboardReducer';
+import moment from 'moment';
 import {
   SET_PAGE,
   SET_FIRST_VISIT,
@@ -19,6 +20,7 @@ import {
   SET_DASHBOARD_FAVOURITES,
   SET_ALERT,
   REMOVE_ALERT,
+  GET_HISTORY_DATA,
 } from '../Context/types';
 import cc from 'cryptocompare';
 cc.setApiKey(
@@ -40,6 +42,7 @@ const DashboardState = (props) => {
     dashboardCurrent: [],
     dashboardFavourites: null,
     alert: null,
+    coinHistory: null,
   };
 
   //props
@@ -131,6 +134,43 @@ const DashboardState = (props) => {
     );
   };
 
+  const getCoinHistory = async () => {
+    const coinPriceHistory = getHistory();
+    console.log('coinPriceHistory');
+    console.log(coinPriceHistory);
+    dispatch({ type: GET_HISTORY_DATA, payload: coinPriceHistory });
+  };
+
+  function getHistory() {
+    const TIME_UNITS = 20;
+
+    const promises = {};
+
+    state.dashboardFavourites.map((coinKey) => {
+      let coinPromise = [];
+
+      for (let i = TIME_UNITS; i >= 0; i--) {
+        getCoinPriceHistory(coinKey, i).then((value) => {
+          coinPromise.push(value);
+        });
+      }
+      promises[coinKey] = coinPromise;
+    });
+
+    console.log('promises');
+    console.log(promises);
+    return promises;
+  }
+
+  const getCoinPriceHistory = async (coinKey, i) => {
+    const priceHistory = await cc.priceHistorical(
+      coinKey,
+      ['USD'],
+      moment().subtract({ months: i }).toDate()
+    );
+
+    return priceHistory;
+  };
   return (
     <DashboardContext.Provider
       value={{
@@ -146,6 +186,7 @@ const DashboardState = (props) => {
         dashboardCurrent: state.dashboardCurrent,
         dashboardFavourites: state.dashboardFavourites,
         alert: state.alert,
+        coinHistory: state.coinHistory,
         setFilterText,
         filterCoins,
         clearFilterText,
@@ -162,6 +203,7 @@ const DashboardState = (props) => {
         setDashboardCurrentFromLocalStorage,
         setDashboardFavourites,
         setAlert,
+        getCoinHistory,
       }}
     >
       {props.children}

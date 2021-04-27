@@ -1,7 +1,8 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import CoinPriceChart from '../Chart/CoinPriceChart';
 import DashboardContext from '../../Context/DashboardContext';
 import styled, { css } from 'styled-components';
+import Spinner from '../layout/spinner';
 
 const MainGrid = styled.div`
   display: flex;
@@ -87,6 +88,8 @@ const MainDisplay = () => {
     dashboardCurrent,
     dashboardFavourites,
     setDashboardFavourites,
+    getCoinHistory,
+    coinHistory,
   } = dashboardContext;
 
   const onClickDelete = (e) => {
@@ -163,8 +166,16 @@ const MainDisplay = () => {
       {dashboardFavourites !== null ? (
         <Fragment>
           <MainGrid>
-            <DataChart></DataChart>
             <MainCoins></MainCoins>
+            {coinHistory !== null ? (
+              <Fragment>
+                <DataChart></DataChart>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <Spinner></Spinner>
+              </Fragment>
+            )}
           </MainGrid>
         </Fragment>
       ) : (

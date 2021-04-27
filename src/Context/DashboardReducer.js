@@ -16,6 +16,7 @@ import {
   SET_DASHBOARD_FAVOURITES,
   SET_ALERT,
   REMOVE_ALERT,
+  GET_HISTORY_DATA,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -128,6 +129,12 @@ export default (state, action) => {
       return {
         ...state,
         alert: null,
+      };
+    }
+    case GET_HISTORY_DATA: {
+      return {
+        ...state,
+        coinHistory: action.payload,
       };
     }
     default:
