@@ -23,6 +23,7 @@ import {
   GET_HISTORY_DATA,
   DELETE_COIN_PRICE_HISTORY,
   SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
+  SET_SERIES,
 } from '../Context/types';
 import cc from 'cryptocompare';
 cc.setApiKey(
@@ -45,6 +46,7 @@ const DashboardState = (props) => {
     dashboardFavourites: null,
     alert: null,
     coinHistory: null,
+    chartSeries: [],
   };
 
   //props
@@ -138,6 +140,10 @@ const DashboardState = (props) => {
 
   const setCoinHistory = async () => {
     const coinPriceHistory = getHistory(state.dashboardCurrent);
+
+    console.log('coinPriceHistory');
+    console.log(coinPriceHistory);
+
     dispatch({ type: GET_HISTORY_DATA, payload: coinPriceHistory });
   };
 
@@ -185,10 +191,36 @@ const DashboardState = (props) => {
           );
 
     const coinPriceHistory = getHistory(myCurrentKeys);
+
     dispatch({
       type: SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
       payload: coinPriceHistory,
     });
+  };
+
+  const setSeries = () => {
+    const TIME_UNITS = 20;
+    let series = [];
+
+    if (state.coinHistory !== null) {
+      const coinKeys = Object.keys(state.coinHistory);
+      coinKeys.map((coinKey) => {
+        let priceXY = {
+          name: coinKey,
+          data: state.coinHistory[coinKey].map((value, index) => [
+            moment()
+              .subtract({ months: TIME_UNITS - index })
+              .valueOf(),
+            value.USD,
+          ]),
+        };
+        series.push(priceXY);
+      });
+    }
+
+    console.log(series);
+
+    dispatch({ type: SET_SERIES, payload: series });
   };
   return (
     <DashboardContext.Provider
@@ -206,6 +238,7 @@ const DashboardState = (props) => {
         dashboardFavourites: state.dashboardFavourites,
         alert: state.alert,
         coinHistory: state.coinHistory,
+        chartSeries: state.chartSeries,
         setFilterText,
         filterCoins,
         clearFilterText,
@@ -225,6 +258,7 @@ const DashboardState = (props) => {
         setCoinHistory,
         deleteCoinPriceHistory,
         setCoinPriceHistoryFromLocalStorage,
+        setSeries,
       }}
     >
       {props.children}

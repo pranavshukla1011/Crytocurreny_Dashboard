@@ -107,6 +107,8 @@ const Dashboard = ({ location }) => {
     setAlert,
     setCoinHistory,
     setCoinPriceHistoryFromLocalStorage,
+    setSeries,
+    coinHistory,
   } = dashboardContext;
 
   useEffect(() => {
@@ -120,6 +122,7 @@ const Dashboard = ({ location }) => {
     setDashboardCurrentFromLocalStorage();
     setDashboardFavourites();
     setCoinPriceHistoryFromLocalStorage();
+    setSeries();
   }, []);
 
   const LoadingFavourites = ({ elem, active, slow }) => {

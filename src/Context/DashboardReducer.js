@@ -19,6 +19,7 @@ import {
   GET_HISTORY_DATA,
   DELETE_COIN_PRICE_HISTORY,
   SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
+  SET_SERIES,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -154,6 +155,14 @@ export default (state, action) => {
         coinHistory: action.payload,
       };
     }
+
+    case SET_SERIES: {
+      return {
+        ...state,
+        chartSeries: action.payload,
+      };
+    }
+
     default:
       return state;
   }
