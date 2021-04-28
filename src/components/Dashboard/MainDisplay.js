@@ -88,8 +88,10 @@ const MainDisplay = () => {
     dashboardCurrent,
     dashboardFavourites,
     setDashboardFavourites,
-    getCoinHistory,
+    setCoinHistory,
     coinHistory,
+    deleteCoinPriceHistory,
+    setCoinPriceHistoryFromLocalStorage,
   } = dashboardContext;
 
   const onClickDelete = (e) => {
@@ -107,6 +109,7 @@ const MainDisplay = () => {
       localStorage.setItem('dashboardCurrent', JSON.stringify(null));
     }
     setDashboardFavourites();
+    deleteCoinPriceHistory(e.target.id);
   };
 
   const MainCoins = () => {
@@ -120,9 +123,6 @@ const MainDisplay = () => {
       favCoins[Object.keys(favourites[i])] = Object.values(favourites[i])[0];
     }
 
-    console.log('favcoins');
-    console.log(favCoins);
-    console.log(dashboardCurrent);
     return (
       <Fragment>
         <CoinGrid>

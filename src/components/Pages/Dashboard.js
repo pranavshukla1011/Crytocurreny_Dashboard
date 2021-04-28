@@ -105,7 +105,8 @@ const Dashboard = ({ location }) => {
     setDashboardCurrentFromLocalStorage,
     setDashboardFavourites,
     setAlert,
-    getCoinHistory,
+    setCoinHistory,
+    setCoinPriceHistoryFromLocalStorage,
   } = dashboardContext;
 
   useEffect(() => {
@@ -118,6 +119,7 @@ const Dashboard = ({ location }) => {
 
     setDashboardCurrentFromLocalStorage();
     setDashboardFavourites();
+    setCoinPriceHistoryFromLocalStorage();
   }, []);
 
   const LoadingFavourites = ({ elem, active, slow }) => {
@@ -199,7 +201,7 @@ const Dashboard = ({ location }) => {
   function onSubmit(e) {
     setValueInLocalStorage(dashboardCurrent);
     setDashboardFavourites();
-    getCoinHistory();
+    setTimeout(setCoinHistory(), 2000);
   }
 
   const DisplayCoinDeatils = () => {

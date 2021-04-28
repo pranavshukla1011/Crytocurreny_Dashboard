@@ -17,6 +17,8 @@ import {
   SET_ALERT,
   REMOVE_ALERT,
   GET_HISTORY_DATA,
+  DELETE_COIN_PRICE_HISTORY,
+  SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
 } from '../Context/types';
 
 export default (state, action) => {
@@ -132,6 +134,21 @@ export default (state, action) => {
       };
     }
     case GET_HISTORY_DATA: {
+      return {
+        ...state,
+        coinHistory: action.payload,
+      };
+    }
+    case DELETE_COIN_PRICE_HISTORY: {
+      let obj = state.coinHistory;
+      delete obj[action.payload];
+      return {
+        ...state,
+        coinHistory: obj,
+      };
+    }
+
+    case SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE: {
       return {
         ...state,
         coinHistory: action.payload,

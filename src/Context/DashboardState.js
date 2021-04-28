@@ -21,6 +21,8 @@ import {
   SET_ALERT,
   REMOVE_ALERT,
   GET_HISTORY_DATA,
+  DELETE_COIN_PRICE_HISTORY,
+  SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
 } from '../Context/types';
 import cc from 'cryptocompare';
 cc.setApiKey(
@@ -134,31 +136,29 @@ const DashboardState = (props) => {
     );
   };
 
-  const getCoinHistory = async () => {
-    const coinPriceHistory = getHistory();
-    console.log('coinPriceHistory');
-    console.log(coinPriceHistory);
+  const setCoinHistory = async () => {
+    const coinPriceHistory = getHistory(state.dashboardCurrent);
     dispatch({ type: GET_HISTORY_DATA, payload: coinPriceHistory });
   };
 
-  function getHistory() {
+  function getHistory(keysArray) {
     const TIME_UNITS = 20;
 
     const promises = {};
 
-    state.dashboardFavourites.map((coinKey) => {
-      let coinPromise = [];
+    if (keysArray.length !== 0) {
+      keysArray.map((coinKey) => {
+        let coinPromise = [];
 
-      for (let i = TIME_UNITS; i >= 0; i--) {
-        getCoinPriceHistory(coinKey, i).then((value) => {
-          coinPromise.push(value);
-        });
-      }
-      promises[coinKey] = coinPromise;
-    });
+        for (let i = TIME_UNITS; i >= 0; i--) {
+          getCoinPriceHistory(coinKey, i).then((value) => {
+            coinPromise.push(value);
+          });
+        }
+        promises[coinKey] = coinPromise;
+      });
+    }
 
-    console.log('promises');
-    console.log(promises);
     return promises;
   }
 
@@ -170,6 +170,25 @@ const DashboardState = (props) => {
     );
 
     return priceHistory;
+  };
+
+  const deleteCoinPriceHistory = (coinKey) => {
+    dispatch({ type: DELETE_COIN_PRICE_HISTORY, payload: coinKey });
+  };
+
+  const setCoinPriceHistoryFromLocalStorage = () => {
+    const myCurrentKeys =
+      JSON.parse(localStorage.getItem('dashboardCurrent')) === null
+        ? []
+        : JSON.parse(localStorage.getItem('dashboardCurrent')).map(
+            (coinKey) => coinKey
+          );
+
+    const coinPriceHistory = getHistory(myCurrentKeys);
+    dispatch({
+      type: SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
+      payload: coinPriceHistory,
+    });
   };
   return (
     <DashboardContext.Provider
@@ -203,7 +222,9 @@ const DashboardState = (props) => {
         setDashboardCurrentFromLocalStorage,
         setDashboardFavourites,
         setAlert,
-        getCoinHistory,
+        setCoinHistory,
+        deleteCoinPriceHistory,
+        setCoinPriceHistoryFromLocalStorage,
       }}
     >
       {props.children}
