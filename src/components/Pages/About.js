@@ -141,11 +141,14 @@ const About = ({ location }) => {
           </AboutInfo>
 
           <AboutLinks>
-            <a href='https://github.com/pranavshukla1011'>
+            <a target='_blank' href='https://github.com/pranavshukla1011'>
               <i class='fab fa-github'></i>
             </a>
 
-            <a href='https://www.linkedin.com/in/shuklapranav1011/'>
+            <a
+              target='_blank'
+              href='https://www.linkedin.com/in/shuklapranav1011/'
+            >
               <i class='fab fa-linkedin-in'></i>
             </a>
 
