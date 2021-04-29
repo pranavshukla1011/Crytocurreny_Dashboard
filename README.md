@@ -20,6 +20,9 @@ User can get latest data on over 6000 cryptocurrencies and can comapre upto 10 c
 
 Visit *https://www.pranav-shukla.netlify.app/* to checkout more of my projects.
 
+![image1](https://user-images.githubusercontent.com/55877875/116616835-c445ed80-a95a-11eb-9b51-9d0c99130b43.png)
+![image2](https://user-images.githubusercontent.com/55877875/116616842-c6a84780-a95a-11eb-8f93-a81b1009920f.png)
+
 /------------------------------------------------------------------------------------------------------------------------------------------------/
 
 # Getting Started with Create React App
