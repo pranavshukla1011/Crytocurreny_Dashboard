@@ -92,6 +92,7 @@ const MainDisplay = () => {
     coinHistory,
     deleteCoinPriceHistory,
     setCoinPriceHistoryFromLocalStorage,
+    setSeries,
   } = dashboardContext;
 
   const onClickDelete = (e) => {
@@ -109,6 +110,7 @@ const MainDisplay = () => {
       localStorage.setItem('dashboardCurrent', JSON.stringify(null));
     }
     setDashboardFavourites();
+    setSeries();
   };
 
   const MainCoins = () => {

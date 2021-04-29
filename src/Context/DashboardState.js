@@ -153,7 +153,10 @@ const DashboardState = (props) => {
     const TIME_UNITS = 20;
     let series = [];
 
-    let setSeriesKeys = state.dashboardCurrent;
+    let setSeriesKeys =
+      JSON.parse(localStorage.getItem('dashboardCurrent')) === null
+        ? []
+        : JSON.parse(localStorage.getItem('dashboardCurrent'));
 
     if (state.coinHistory !== null) {
       const coinKeys = setSeriesKeys;

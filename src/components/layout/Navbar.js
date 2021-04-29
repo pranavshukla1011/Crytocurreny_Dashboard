@@ -54,8 +54,8 @@ const Navbar = ({ location }) => {
     setPrices();
     setFirstVisit();
     setFavourites();
-    setDashboardCurrentFromLocalStorage();
-    setDashboardFavourites();
+    // setDashboardCurrentFromLocalStorage();
+    // setDashboardFavourites();
     // eslint-disable-next-line
   }, [page]);
 

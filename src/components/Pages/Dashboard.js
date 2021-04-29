@@ -119,8 +119,8 @@ const Dashboard = ({ location }) => {
     setPrices();
     setFirstVisit();
 
-    setDashboardCurrentFromLocalStorage();
-    setDashboardFavourites();
+    // setDashboardCurrentFromLocalStorage();
+    // setDashboardFavourites();
     setCoinPriceHistoryFromLocalStorage();
   }, []);
 
