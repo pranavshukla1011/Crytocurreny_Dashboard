@@ -27,7 +27,15 @@ import {
 } from '../Context/types';
 import cc from 'cryptocompare';
 
-cc.setApiKey(`${process.env.REACT_APP_CRYPTOCOMPARE_ID}`);
+let cryptocompareId;
+
+if (process.nextTick.NODE_ENV != 'production') {
+  cryptocompareId = process.env.REACT_APP_CRYPTOCOMPARE_ID;
+} else {
+  cryptocompareId = process.env.CRYPTOCOMPARE_ID;
+}
+
+cc.setApiKey(`${cryptocompareId}`);
 
 const DashboardState = (props) => {
   //initial state
