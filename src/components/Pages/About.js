@@ -22,6 +22,9 @@ const AboutContainer = styled.div`
   h4 {
     margin-top: 20px;
   }
+  a {
+    color: var(--main-color-purple);
+  }
 `;
 
 const AboutInfo = styled.div`
@@ -30,6 +33,26 @@ const AboutInfo = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+const AboutLinks = styled.div`
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+  a {
+    font-size: var(--l-length-s);
+    color: var(--font-color-3);
+    margin: 40px;
+    transition-property: color, transform, animation;
+    transition-duration: 150ms;
+    transition-timing-function: ease-in-out;
+    &:hover {
+      transform: scale(1.5, 1.5);
+      color: var(--main-color-pink);
+      animation: animate1 1.5s infinite alternate;
+    }
+  }
+`;
+
 const About = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
   const { setPage } = dashboardContext;
@@ -92,9 +115,9 @@ const About = ({ location }) => {
             </ul>
           </p>
           <AboutInfo>
-            <p style={{ float: 'left' }}>
+            <p>
               <h4> Designed and developed by </h4>
-              <h1>Pranav Shukla.</h1>
+              <h1 style={{ color: 'var(--font-color-3)' }}>Pranav Shukla.</h1>
             </p>
             <div></div>
             <p style={{ float: 'right' }}>
@@ -103,13 +126,39 @@ const About = ({ location }) => {
               </a>{' '}
               <br />
               <br />
-              I'm open to front-end dev opportunities.
+              <span style={{ color: 'var(--font-color-3)' }}>
+                {' '}
+                I'm open to front-end dev opportunities.
+              </span>
               <br />
               <br />
-              Thankyou for visiting!! Toodles...
+              <span style={{ color: 'var(--font-color-3)' }}>
+                {' '}
+                Thankyou for visiting!! Toodles...
+              </span>
               <br />
             </p>
           </AboutInfo>
+
+          <AboutLinks>
+            <a href='https://github.com/pranavshukla1011'>
+              <i class='fab fa-github'></i>
+            </a>
+
+            <a href='https://www.linkedin.com/in/shuklapranav1011/'>
+              <i class='fab fa-linkedin-in'></i>
+            </a>
+
+            <a
+              target='_blank'
+              href='https://mail.google.com/mail/u/1/?view=cm&fs=1&to=pranav.1011.shukla@gmail.com&tf=1'
+            >
+              <i class='fab fa-google'></i>
+            </a>
+            <a target='_blank' href='https://pranav-shukla.netlify.app/'>
+              <i class='fas fa-at'></i>
+            </a>
+          </AboutLinks>
         </div>
       </AboutContainer>
     </Fragment>
