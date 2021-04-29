@@ -113,7 +113,7 @@ const Dashboard = ({ location }) => {
 
   useEffect(() => {
     setPage(location.pathname);
-    // eslint-disable-next-line
+
     localStorage.setItem('firstVisit', JSON.stringify(false));
     setFavourites();
     setPrices();
@@ -122,7 +122,6 @@ const Dashboard = ({ location }) => {
     setDashboardCurrentFromLocalStorage();
     setDashboardFavourites();
     setCoinPriceHistoryFromLocalStorage();
-    setSeries();
   }, []);
 
   const LoadingFavourites = ({ elem, active, slow }) => {
@@ -204,7 +203,8 @@ const Dashboard = ({ location }) => {
   function onSubmit(e) {
     setValueInLocalStorage(dashboardCurrent);
     setDashboardFavourites();
-    setTimeout(setCoinHistory(), 2000);
+    // setTimeout(setCoinHistory(), 2000);
+    // setTimeout(setSeries(), 3000);
   }
 
   const DisplayCoinDeatils = () => {

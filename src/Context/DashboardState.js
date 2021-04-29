@@ -20,7 +20,6 @@ import {
   SET_DASHBOARD_FAVOURITES,
   SET_ALERT,
   REMOVE_ALERT,
-  GET_HISTORY_DATA,
   DELETE_COIN_PRICE_HISTORY,
   SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
   SET_SERIES,
@@ -82,9 +81,97 @@ const DashboardState = (props) => {
         )
       );
       let coinPrices = await cc.priceFull(localData, ['USD']);
-      // coinPrices = coinPrices.filter((price) => Object.keys(price).length);
+
       dispatch({ type: SET_PRICES, payload: coinPrices });
     }
+  };
+
+  function getHistory(keysArray) {
+    const TIME_UNITS = 20;
+
+    const promises = {};
+
+    if (keysArray.length !== 0) {
+      keysArray.map((coinKey) => {
+        let coinPromise = [];
+
+        for (let i = TIME_UNITS; i >= 0; i--) {
+          coinPromise.push(
+            cc.priceHistorical(
+              coinKey,
+              ['USD'],
+              moment().subtract({ months: i }).toDate()
+            )
+          );
+        }
+        promises[coinKey] = coinPromise;
+      });
+    }
+
+    console.log(promises);
+    return promises;
+  }
+
+  const deleteCoinPriceHistory = (coinKey) => {
+    dispatch({ type: DELETE_COIN_PRICE_HISTORY, payload: coinKey });
+  };
+
+  const setCoinPriceHistoryFromLocalStorage = async () => {
+    const myCurrentKeys =
+      JSON.parse(localStorage.getItem('cryptoData')) === null
+        ? []
+        : JSON.parse(localStorage.getItem('cryptoData')).map(
+            (coinObj) => Object.keys(coinObj)[0]
+          );
+
+    console.log(myCurrentKeys);
+    const coinPriceHistoryTemp = await getHistory(myCurrentKeys);
+    console.log('coinPriceHistory');
+    console.log(coinPriceHistoryTemp);
+
+    let coinPriceHistory = {};
+
+    myCurrentKeys.map((coinKey) => {
+      let coinPriceArrayTemp = [];
+      coinPriceHistoryTemp[coinKey].map((coinPromise) => {
+        coinPromise.then((value) => {
+          coinPriceArrayTemp.push(value);
+        });
+        coinPriceHistory[coinKey] = coinPriceArrayTemp;
+      });
+    });
+
+    console.log(coinPriceHistory);
+
+    dispatch({
+      type: SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
+      payload: coinPriceHistory,
+    });
+  };
+
+  const setSeries = () => {
+    const TIME_UNITS = 20;
+    let series = [];
+
+    if (state.coinHistory !== null) {
+      const coinKeys = Object.keys(state.coinHistory);
+      coinKeys.map((coinKey) => {
+        let priceXY = {
+          name: coinKey,
+          data: state.coinHistory[coinKey].map((value, index) => [
+            moment()
+              .subtract({ months: TIME_UNITS - index })
+              .valueOf(),
+            value.USD,
+          ]),
+        };
+        series.push(priceXY);
+      });
+    }
+
+    console.log(series);
+
+    dispatch({ type: SET_SERIES, payload: series });
   };
 
   const filterCoins = (filteredArray) => {
@@ -138,90 +225,6 @@ const DashboardState = (props) => {
     );
   };
 
-  const setCoinHistory = async () => {
-    const coinPriceHistory = getHistory(state.dashboardCurrent);
-
-    console.log('coinPriceHistory');
-    console.log(coinPriceHistory);
-
-    dispatch({ type: GET_HISTORY_DATA, payload: coinPriceHistory });
-  };
-
-  function getHistory(keysArray) {
-    const TIME_UNITS = 20;
-
-    const promises = {};
-
-    if (keysArray.length !== 0) {
-      keysArray.map((coinKey) => {
-        let coinPromise = [];
-
-        for (let i = TIME_UNITS; i >= 0; i--) {
-          getCoinPriceHistory(coinKey, i).then((value) => {
-            coinPromise.push(value);
-          });
-        }
-        promises[coinKey] = coinPromise;
-      });
-    }
-
-    return promises;
-  }
-
-  const getCoinPriceHistory = async (coinKey, i) => {
-    const priceHistory = await cc.priceHistorical(
-      coinKey,
-      ['USD'],
-      moment().subtract({ months: i }).toDate()
-    );
-
-    return priceHistory;
-  };
-
-  const deleteCoinPriceHistory = (coinKey) => {
-    dispatch({ type: DELETE_COIN_PRICE_HISTORY, payload: coinKey });
-  };
-
-  const setCoinPriceHistoryFromLocalStorage = () => {
-    const myCurrentKeys =
-      JSON.parse(localStorage.getItem('dashboardCurrent')) === null
-        ? []
-        : JSON.parse(localStorage.getItem('dashboardCurrent')).map(
-            (coinKey) => coinKey
-          );
-
-    const coinPriceHistory = getHistory(myCurrentKeys);
-
-    dispatch({
-      type: SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
-      payload: coinPriceHistory,
-    });
-  };
-
-  const setSeries = () => {
-    const TIME_UNITS = 20;
-    let series = [];
-
-    if (state.coinHistory !== null) {
-      const coinKeys = Object.keys(state.coinHistory);
-      coinKeys.map((coinKey) => {
-        let priceXY = {
-          name: coinKey,
-          data: state.coinHistory[coinKey].map((value, index) => [
-            moment()
-              .subtract({ months: TIME_UNITS - index })
-              .valueOf(),
-            value.USD,
-          ]),
-        };
-        series.push(priceXY);
-      });
-    }
-
-    console.log(series);
-
-    dispatch({ type: SET_SERIES, payload: series });
-  };
   return (
     <DashboardContext.Provider
       value={{
@@ -255,7 +258,6 @@ const DashboardState = (props) => {
         setDashboardCurrentFromLocalStorage,
         setDashboardFavourites,
         setAlert,
-        setCoinHistory,
         deleteCoinPriceHistory,
         setCoinPriceHistoryFromLocalStorage,
         setSeries,
