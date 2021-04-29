@@ -1,3 +1,27 @@
+# **My-Crypto-App** 
+
+###### *visit - https://www.my-crypto-app.netlify.app*
+
+## **Description** 
+
+My Crypto App is a cryptocurrency dashboard app made using *ReactJs, Context API and Cryptocompare API*.
+
+User can get latest data on over 6000 cryptocurrencies and can comapre upto 10 cryptocurrency coins based on their recent trends with their favourite coins stored in to local storage data base for easy access.
+
+## Dependencies used:
+
+- ReactJs, React Router
+- Context API
+- React Styled-Components
+- Cryptocompare API : -- for fetching latest info of various currencies. Visit *https://www.cryptocompare.com/* to check out the API
+- React Highcharts : -- for visualising the data fetched. Visit *https://www.highcharts.com/* to checkout highcarts
+- Moment : -- A JavaScript date library for parsing, validating, manipulating, and formatting dates.
+
+
+Visit *https://www.pranav-shukla.netlify.app/* to checkout more of my projects.
+
+/------------------------------------------------------------------------------------------------------------------------------------------------/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
