@@ -69,7 +69,7 @@ const About = ({ location }) => {
           <h1 style={{ textAlign: 'center' }}>About</h1>
           <p>
             This is a cryptocurrency dashboard where you can lookup the latest
-            pricing and tends for over 6000 cryptocurrencies.
+            pricing and trends for over 6000 cryptocurrencies.
           </p>
           <p>
             <h2>Dependencies used:</h2>
