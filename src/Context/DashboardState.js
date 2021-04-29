@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import DashboardContext from '../Context/DashboardContext';
 import DashboardReducer from '../Context/DashboardReducer';
 import moment from 'moment';
+
 import {
   SET_PAGE,
   SET_FIRST_VISIT,
@@ -25,9 +26,8 @@ import {
   SET_SERIES,
 } from '../Context/types';
 import cc from 'cryptocompare';
-cc.setApiKey(
-  '724862db550136603183e13b1c037c5261864518c32be4522aa428e895ddd035'
-);
+
+cc.setApiKey(`${process.env.REACT_APP_CRYPTOCOMPARE_ID}`);
 
 const DashboardState = (props) => {
   //initial state
