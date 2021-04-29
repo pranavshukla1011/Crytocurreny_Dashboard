@@ -153,8 +153,10 @@ const DashboardState = (props) => {
     const TIME_UNITS = 20;
     let series = [];
 
+    let setSeriesKeys = state.dashboardCurrent;
+
     if (state.coinHistory !== null) {
-      const coinKeys = Object.keys(state.coinHistory);
+      const coinKeys = setSeriesKeys;
       coinKeys.map((coinKey) => {
         let priceXY = {
           name: coinKey,

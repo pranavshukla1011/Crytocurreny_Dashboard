@@ -204,7 +204,7 @@ const Dashboard = ({ location }) => {
     setValueInLocalStorage(dashboardCurrent);
     setDashboardFavourites();
     // setTimeout(setCoinHistory(), 2000);
-    // setTimeout(setSeries(), 3000);
+    setSeries();
   }
 
   const DisplayCoinDeatils = () => {

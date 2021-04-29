@@ -109,7 +109,6 @@ const MainDisplay = () => {
       localStorage.setItem('dashboardCurrent', JSON.stringify(null));
     }
     setDashboardFavourites();
-    deleteCoinPriceHistory(e.target.id);
   };
 
   const MainCoins = () => {
