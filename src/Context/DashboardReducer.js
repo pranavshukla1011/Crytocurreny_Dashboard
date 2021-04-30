@@ -21,7 +21,7 @@ import {
   SET_COIN_PRICE_HISTORY_FROM_LOCAL_STORAGE,
   SET_SERIES,
 } from '../Context/types';
-
+// eslint-disable-next-line
 export default (state, action) => {
   switch (action.type) {
     case SET_PAGE:

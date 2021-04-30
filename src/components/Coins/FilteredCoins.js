@@ -109,7 +109,7 @@ const FilteredCoins = () => {
               <img
                 style={{ height: '70px', margin: '10px 0' }}
                 src={`http://cryptocompare.com/${coinList[coinKey].ImageUrl}`}
-                alt='<coin image>'
+                alt='<coin pic>'
               />
 
               <div className='coin-grid'>

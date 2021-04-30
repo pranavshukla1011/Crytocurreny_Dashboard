@@ -1,7 +1,7 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import CoinPriceChart from '../Chart/CoinPriceChart';
 import DashboardContext from '../../Context/DashboardContext';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Spinner from '../layout/spinner';
 
 const MainGrid = styled.div`
@@ -16,25 +16,6 @@ const CoinGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   text-align: center;
   margin: 20px 10px;
-`;
-const MainDiv = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  //   animation: animate3 5s infinite alternate;
-  align-items: center;
-  justify-content: center;
-  color: var(--font-color-3);
-  margin: 20px 10px;
-  & h1 {
-    font-size: var(--l-length-m);
-  }
-  & h2 {
-    font-size: var(--l-length-s);
-  }
-  & h3 {
-    font-size: var(--m-length-l);
-  }
 `;
 
 const FavouriteCoin = styled.div`
@@ -60,38 +41,13 @@ const FavouriteDeleteButton = styled.button`
   border-radius: var(--m-length-m);
 `;
 
-const FavouriteDeleteAllButton = styled.button`
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 5px 5px;
-  padding: 5px 10px;
-  background-color: var(--font-color-1);
-  border-style: none;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition-property: animation, background-color, transform;
-  transition-duration: 150ms;
-  transition-timing-function: ease-in-out;
-  &:hover {
-    background-color: var(--font-color-2);
-    animation: animate3 5s infinite alternate;
-    transform: scale(1.1, 1.1);
-  }
-  border-radius: var(--m-length-m);
-`;
-
 const MainDisplay = () => {
   const dashboardContext = useContext(DashboardContext);
   const {
     favourites,
-    dashboardCurrent,
     dashboardFavourites,
     setDashboardFavourites,
-    setCoinHistory,
     coinHistory,
-    deleteCoinPriceHistory,
-    setCoinPriceHistoryFromLocalStorage,
     setSeries,
   } = dashboardContext;
 
@@ -139,7 +95,7 @@ const MainDisplay = () => {
               <img
                 style={{ height: '70px', margin: '10px 0' }}
                 src={`http://cryptocompare.com/${favCoins[coinKey].ImageUrl}`}
-                alt='<coin image>'
+                alt='<coin pic>'
               />
               <div></div>
               <FavouriteDeleteButton id={coinKey} onClick={onClickDelete}>

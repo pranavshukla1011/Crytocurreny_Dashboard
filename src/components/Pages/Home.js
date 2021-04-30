@@ -3,7 +3,8 @@ import DashboardContext from '../../Context/DashboardContext';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Spinner from '../layout/spinner';
-
+import homeImg from '../../img/home_img.svg';
+import AboutLinks from '../layout/AboutLinks';
 const MainDiv = styled.div`
   text-align: center;
   display: flex;
@@ -53,8 +54,8 @@ const Home = ({ location }) => {
 
   useEffect(() => {
     setPage(location.pathname);
-    // eslint-disable-next-line
     setFirstVisit();
+    // eslint-disable-next-line
   }, [firstVisit]);
 
   if (dashboardContext.loading === true) {
@@ -62,42 +63,62 @@ const Home = ({ location }) => {
   } else {
     return (
       <div className='container'>
-        <MainDiv>
-          {firstVisit === true || firstVisit == null ? (
-            <Fragment>
-              <h1>Hi Newbie...</h1>
-              <h2>Welcome to CryptoCurrency Dashboard.</h2>
-              <br />
-            </Fragment>
-          ) : (
-            <Fragment>
-              <h1>Glad to have you back...</h1>
-              <br />
-            </Fragment>
-          )}
-          {favourites === null ? (
-            <Fragment>
-              <h3>
-                Please click the <i>Settings</i> tab to setup you currency to
-                get started.
-              </h3>
-              <br />
-              <StyledLink to='/settings'>
-                <p>Settings</p>
-              </StyledLink>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <h3>
-                Please click the <i>Dashboard</i> tab to view your currency.
-              </h3>
-              <br />
-              <StyledLink to='/dashboard'>
-                <p>Dashboard</p>
-              </StyledLink>
-            </Fragment>
-          )}
-        </MainDiv>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr  1fr',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: 'auto',
+            height: '70vh',
+          }}
+        >
+          <div>
+            <img
+              src={homeImg}
+              alt='Homepage Img'
+              style={{ height: 'auto', width: '90%' }}
+            />
+          </div>
+
+          <MainDiv>
+            {firstVisit === true || firstVisit == null ? (
+              <Fragment>
+                <h1>Hi Newbie...</h1>
+                <h2>Welcome to CryptoCurrency Dashboard.</h2>
+                <br />
+              </Fragment>
+            ) : (
+              <Fragment>
+                <h1>Glad to have you back...</h1>
+                <br />
+              </Fragment>
+            )}
+            {favourites === null ? (
+              <Fragment>
+                <h3>
+                  Please click the <i>Settings</i> tab to setup you currency to
+                  get started.
+                </h3>
+                <br />
+                <StyledLink to='/settings'>
+                  <p>Settings</p>
+                </StyledLink>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <h3>
+                  Please click the <i>Dashboard</i> tab to view your currency.
+                </h3>
+                <br />
+                <StyledLink to='/dashboard'>
+                  <p>Dashboard</p>
+                </StyledLink>
+              </Fragment>
+            )}
+          </MainDiv>
+        </div>
+        <AboutLinks></AboutLinks>
       </div>
     );
   }

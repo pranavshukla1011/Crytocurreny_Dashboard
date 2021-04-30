@@ -106,6 +106,7 @@ const Settings = ({ location }) => {
     setPage(location.pathname);
     // eslint-disable-next-line
     if (filtered === null) {
+      // eslint-disable-next-line
       text = '';
       clearFilterText();
     }

@@ -29,7 +29,7 @@ import cc from 'cryptocompare';
 
 let cryptocompareId;
 
-if (process.nextTick.NODE_ENV != 'production') {
+if (process.nextTick.NODE_ENV !== 'production') {
   cryptocompareId = process.env.REACT_APP_CRYPTOCOMPARE_ID;
 } else {
   cryptocompareId = process.env.CRYPTOCOMPARE_ID;
@@ -100,6 +100,7 @@ const DashboardState = (props) => {
     const promises = {};
 
     if (keysArray.length !== 0) {
+      // eslint-disable-next-line
       keysArray.map((coinKey) => {
         let coinPromise = [];
 
@@ -138,9 +139,10 @@ const DashboardState = (props) => {
     console.log(coinPriceHistoryTemp);
 
     let coinPriceHistory = {};
-
+    // eslint-disable-next-line
     myCurrentKeys.map((coinKey) => {
       let coinPriceArrayTemp = [];
+      // eslint-disable-next-line
       coinPriceHistoryTemp[coinKey].map((coinPromise) => {
         coinPromise.then((value) => {
           coinPriceArrayTemp.push(value);
@@ -165,9 +167,10 @@ const DashboardState = (props) => {
       JSON.parse(localStorage.getItem('dashboardCurrent')) === null
         ? []
         : JSON.parse(localStorage.getItem('dashboardCurrent'));
-
+    // eslint-disable-next-line
     if (state.coinHistory !== null) {
       const coinKeys = setSeriesKeys;
+      // eslint-disable-next-line
       coinKeys.map((coinKey) => {
         let priceXY = {
           name: coinKey,

@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import DashboardContext from '../../Context/DashboardContext';
+import AboutLinks from '../layout/AboutLinks';
 import styled from 'styled-components';
 
 const AboutContainer = styled.div`
@@ -34,25 +35,6 @@ const AboutInfo = styled.div`
   justify-content: center;
 `;
 
-const AboutLinks = styled.div`
-  margin: 40px;
-  display: flex;
-  justify-content: center;
-  a {
-    font-size: var(--l-length-s);
-    color: var(--font-color-3);
-    margin: 40px;
-    transition-property: color, transform, animation;
-    transition-duration: 150ms;
-    transition-timing-function: ease-in-out;
-    &:hover {
-      transform: scale(1.5, 1.5);
-      color: var(--main-color-pink);
-      animation: animate1 1.5s infinite alternate;
-    }
-  }
-`;
-
 const About = ({ location }) => {
   const dashboardContext = useContext(DashboardContext);
   const { setPage } = dashboardContext;
@@ -81,7 +63,11 @@ const About = ({ location }) => {
                 {' '}
                 Cryptocompare API : -- for fetching latest info of various
                 currencies. Click{' '}
-                <a target='_blank' href='https://www.cryptocompare.com/'>
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href='https://www.cryptocompare.com/'
+                >
                   here
                 </a>{' '}
                 to check out the API
@@ -107,7 +93,11 @@ const About = ({ location }) => {
             </p>
             <div></div>
             <p style={{ float: 'right' }}>
-              <a target='_blank' href='https://pranav-shukla.netlify.app/'>
+              <a
+                target='_blank'
+                rel='noreferrer'
+                href='https://pranav-shukla.netlify.app/'
+              >
                 Click to checkout my other projects.
               </a>{' '}
               <br />
@@ -126,28 +116,7 @@ const About = ({ location }) => {
             </p>
           </AboutInfo>
 
-          <AboutLinks>
-            <a target='_blank' href='https://github.com/pranavshukla1011'>
-              <i class='fab fa-github'></i>
-            </a>
-
-            <a
-              target='_blank'
-              href='https://www.linkedin.com/in/shuklapranav1011/'
-            >
-              <i class='fab fa-linkedin-in'></i>
-            </a>
-
-            <a
-              target='_blank'
-              href='https://mail.google.com/mail/u/1/?view=cm&fs=1&to=pranav.1011.shukla@gmail.com&tf=1'
-            >
-              <i class='fab fa-google'></i>
-            </a>
-            <a target='_blank' href='https://pranav-shukla.netlify.app/'>
-              <i class='fas fa-at'></i>
-            </a>
-          </AboutLinks>
+          <AboutLinks></AboutLinks>
         </div>
       </AboutContainer>
     </Fragment>

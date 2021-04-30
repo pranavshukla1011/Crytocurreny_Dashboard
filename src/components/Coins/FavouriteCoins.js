@@ -128,7 +128,7 @@ const FavouriteCoins = () => {
               <img
                 style={{ height: '70px', margin: '10px 0' }}
                 src={`http://cryptocompare.com/${favCoins[coinKey].ImageUrl}`}
-                alt='<coin image>'
+                alt='<coin pic>'
               />
               <div></div>
               <FavouriteDeleteButton id={coinKey} onClick={onClickDelete}>

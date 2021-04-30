@@ -5,7 +5,8 @@ import Spinner from '../layout/spinner';
 import styled, { css } from 'styled-components';
 import MainDisplay from '../Dashboard/MainDisplay';
 import Alert from '../layout/Alert';
-import { Link } from 'react-router-dom';
+import dashboardImg from '../../img/dashboard_loading.svg';
+
 const CoinGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -102,13 +103,10 @@ const Dashboard = ({ location }) => {
     dashboardCurrent,
     setDashboardCurrent,
     deleteDashboardCurrent,
-    setDashboardCurrentFromLocalStorage,
     setDashboardFavourites,
     setAlert,
-    setCoinHistory,
     setCoinPriceHistoryFromLocalStorage,
     setSeries,
-    coinHistory,
   } = dashboardContext;
 
   useEffect(() => {
@@ -118,10 +116,8 @@ const Dashboard = ({ location }) => {
     setFavourites();
     setPrices();
     setFirstVisit();
-
-    // setDashboardCurrentFromLocalStorage();
-    // setDashboardFavourites();
     setCoinPriceHistoryFromLocalStorage();
+    // eslint-disable-next-line
   }, []);
 
   const LoadingFavourites = ({ elem, active, slow }) => {
@@ -130,8 +126,8 @@ const Dashboard = ({ location }) => {
         <div
           style={{
             display: 'flex',
+            height: '100%',
             flexDirection: 'column',
-            paddingTop: '30vh',
             justifyContent: 'center',
             alignItems: 'center',
             animation: active ? 'none' : 'animate5 500ms ease-in',
@@ -147,9 +143,8 @@ const Dashboard = ({ location }) => {
             coins....please head on to settings tab and select favourites...
             otherwise please wait for your selections to load...
           </p>
+          <Spinner />
         </div>
-
-        <Spinner />
       </Fragment>
     );
   };
@@ -326,6 +321,7 @@ const Dashboard = ({ location }) => {
                 <a
                   href={`https://cryptocompare.com/coins/${coinKey.toLowerCase()}/overview`}
                   target='_blank'
+                  rel='noreferrer'
                 >
                   <PriceCoinImg
                     src={`http://cryptocompare.com/${favCoins[coinKey].ImageUrl}`}
@@ -382,11 +378,39 @@ const Dashboard = ({ location }) => {
   };
 
   if (!favourites || !prices) {
-    if (!favourites) {
-      return <LoadingFavourites active elem={'Favourites'} />;
-    } else {
-      return <LoadingFavourites active elem={'Prices'} />;
-    }
+    return (
+      <Fragment>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr  2fr',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '80vh',
+          }}
+        >
+          <div>
+            <img
+              src={dashboardImg}
+              alt='Dashboard Img'
+              style={{ height: 'auto', width: '100%', padding: '50px' }}
+            />
+          </div>
+          {!favourites ? (
+            <Fragment>
+              {' '}
+              <LoadingFavourites active elem={'Favourites'} />{' '}
+            </Fragment>
+          ) : (
+            <Fragment>
+              {' '}
+              <LoadingFavourites active elem={'Prices'} />;
+            </Fragment>
+          )}
+        </div>
+        ;
+      </Fragment>
+    );
   } else {
     return (
       <Fragment>

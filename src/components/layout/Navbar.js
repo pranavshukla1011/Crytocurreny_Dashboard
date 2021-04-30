@@ -45,8 +45,6 @@ const Navbar = ({ location }) => {
     setFirstVisit,
     setPrices,
     setCurrentFromLocalStorage,
-    setDashboardCurrentFromLocalStorage,
-    setDashboardFavourites,
   } = dashboardContext;
 
   useEffect(() => {

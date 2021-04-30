@@ -1,8 +1,7 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import ReactHighCharts from 'react-highcharts';
 import '../Chart/HighCharts.css';
 import DashboardContext from '../../Context/DashboardContext';
-import moment from 'moment';
 
 export const CoinPriceChart = () => {
   const dashboardContext = useContext(DashboardContext);
