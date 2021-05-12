@@ -17,9 +17,6 @@ User can get latest data on over 6000 cryptocurrencies and can comapre upto 10 c
 - React Highcharts : -- for visualising the data fetched. Visit *https://www.highcharts.com/* to checkout highcarts
 - Moment : -- A JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
-
-Visit *https://pranav-shukla.netlify.app/* to checkout more of my projects.
-
 Dashboard :
 ![image1](https://user-images.githubusercontent.com/55877875/116616835-c445ed80-a95a-11eb-9b51-9d0c99130b43.png)
 
