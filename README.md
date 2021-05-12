@@ -8,7 +8,7 @@ My Crypto App is a cryptocurrency dashboard app made using *ReactJs, Context API
 
 User can get latest data on over 6000 cryptocurrencies and can comapre upto 10 cryptocurrency coins based on their recent trends with their favourite coins stored in to local storage data base for easy access.
 
-**Visit : ** https://pranav-shukla.netlify.app/  to see all my projects.
+**Visit :** https://pranav-shukla.netlify.app/  to see all my projects.
 
 ## Dependencies used:
 
